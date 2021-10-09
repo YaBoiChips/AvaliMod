@@ -16,7 +16,7 @@ public class AItems {
     public static final ItemGroup TAB = new ItemGroup(AvaliMod.MOD_ID) {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(Items.ACACIA_BOAT);
+            return new ItemStack(AItems.AVALI_LOGO);
         }
 
         @Override
@@ -30,7 +30,7 @@ public class AItems {
         }
     };
 
-
+    public static Item AVALI_LOGO = createItem(new Item(new Item.Properties().fireResistant()), "avali_logo");
 
     public static Item createItem(Item item, String id) {
         return createItem(item, AvaliMod.createResource(id));
