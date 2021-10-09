@@ -2,6 +2,8 @@ package tombchips.avalimod.core.world;
 
 import net.minecraft.world.biome.Biome;
 import tombchips.avalimod.AvaliMod;
+import tombchips.avalimod.common.dimension.biomes.AvalonDesert;
+import tombchips.avalimod.common.dimension.biomes.AvalonFrozenBiome;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,8 @@ public class ABiomes {
     public static List<PreserveBiomeOrder> biomes = new ArrayList<>();
 
 
+    public static final Biome AVALON_DESERT = registerBiome("avalon_desert", new AvalonDesert().getBiome(), 1);
+    public static final Biome AVALON_FROZEN = registerBiome("avalon_frozen", new AvalonFrozenBiome().getBiome(), 2);
 
 
 

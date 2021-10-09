@@ -1,0 +1,78 @@
+{
+  "type": {
+    "name": "thebetween:between",
+    "ultrawarm": false,
+    "natural": true,
+    "piglin_safe": true,
+    "respawn_anchor_works": false,
+    "bed_works": true,
+    "has_raids": false,
+    "has_skylight": true,
+    "has_ceiling": false,
+    "coordinate_scale": 1,
+    "ambient_light": 0,
+    "logical_height": 256,
+    "infiniburn": "minecraft:infiniburn_overworld",
+    "min_y": 0,
+    "height": 256
+  },
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": -498841321,
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "seed": 28695624,
+      "altitude_noise": {
+        "firstOctave": -7,
+        "amplitudes": [
+          1,
+          1
+        ]
+      },
+      "temperature_noise": {
+        "firstOctave": -7,
+        "amplitudes": [
+          1,
+          1
+        ]
+      },
+      "humidity_noise": {
+        "firstOctave": -7,
+        "amplitudes": [
+          1,
+          1
+        ]
+      },
+      "weirdness_noise": {
+        "firstOctave": -7,
+        "amplitudes": [
+          1,
+          1
+        ]
+      },
+      "biomes": [
+        {
+          "biome": "avalimod:avalon_desert",
+          "parameters": {
+            "altitude": 0.2,
+            "temperature": 0.8,
+            "humidity": 0.3,
+            "weirdness": 0.4,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "avalimod:avalon_frozen",
+          "parameters": {
+            "altitude": 0.1,
+            "temperature": -0.2,
+            "humidity": 0.1,
+            "weirdness": 0.7,
+            "offset": 0.5
+          }
+        }
+      ]
+    },
+    "settings": "minecraft:overworld"
+  }
+}
