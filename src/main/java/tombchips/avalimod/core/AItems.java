@@ -1,10 +1,7 @@
 package tombchips.avalimod.core;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import tombchips.avalimod.AvaliMod;
@@ -19,7 +16,7 @@ public class AItems {
     public static final ItemGroup TAB = new ItemGroup(AvaliMod.MOD_ID) {
         @Override
         public ItemStack makeIcon() {
-            return null; //new ItemStack(AItems.ITEM);
+            return new ItemStack(Items.ACACIA_BOAT);
         }
 
         @Override
