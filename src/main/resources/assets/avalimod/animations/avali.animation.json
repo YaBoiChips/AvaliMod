@@ -1,0 +1,52 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"avali.animation": {
+			"loop": true,
+			"animation_length": 2.33333,
+			"bones": {
+				"Head": {
+					"rotation": {
+						"0.0": {
+							"vector": {
+								"vector": {
+									"vector": [0, 0, 0]
+								}
+							}
+						},
+						"1.0": {
+							"vector": {
+								"vector": {
+									"vector": [0, 0, -12.5],
+									"easing": "easeInQuint"
+								},
+								"easing": "easeInQuint"
+							},
+							"easing": "easeInQuint"
+						},
+						"1.7917": {
+							"vector": {
+								"vector": {
+									"vector": [0, 0, 7.5],
+									"easing": "easeInCubic"
+								},
+								"easing": "easeInCubic"
+							},
+							"easing": "easeInCubic"
+						},
+						"2.3333": {
+							"vector": {
+								"vector": {
+									"vector": [0, 0, 0],
+									"easing": "easeInSine"
+								},
+								"easing": "easeInSine"
+							},
+							"easing": "easeInSine"
+						}
+					}
+				}
+			}
+		}
+	}
+}

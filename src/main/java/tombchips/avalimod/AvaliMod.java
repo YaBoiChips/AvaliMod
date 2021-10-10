@@ -2,9 +2,9 @@ package tombchips.avalimod;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.Fluid;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -14,6 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -26,9 +27,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
+import tombchips.avalimod.client.entity.AvaliEntityRenderer;
+import tombchips.avalimod.common.entity.AvaliEntity;
 import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AEntityTypes;
-import tombchips.avalimod.core.AFluids;
 import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.world.ABiomes;
 import tombchips.avalimod.core.world.AFeatures;
@@ -54,14 +56,15 @@ public class AvaliMod {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
+    public void setup(final FMLCommonSetupEvent event) {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        GlobalEntityTypeAttributes.put(AEntityTypes.AVALI, AvaliEntity.setCustiomAttributes().build());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        // do something that can only be done on the client
+        RenderingRegistry.registerEntityRenderingHandler(AEntityTypes.AVALI, manager -> new AvaliEntityRenderer<>(manager));
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -114,16 +117,6 @@ public class AvaliMod {
         }
 
         @SubscribeEvent
-        public static void onFluidRegistry(final RegistryEvent.Register<Fluid> event) {
-            LOGGER.info("HELLO from Register Fluids");
-            AFluids.init();
-            AFluids.fluids.forEach(fluid -> event.getRegistry().register(fluid));
-            AFluids.fluids.clear();
-            AFluids.fluids = null;
-            LOGGER.info("BYE from Register Fluids");
-        }
-
-        @SubscribeEvent
         public static void onEntityRegistry(final RegistryEvent.Register<EntityType<?>> event) {
             LOGGER.info("HELLO from Register Entities");
             AEntityTypes.init();
@@ -160,5 +153,6 @@ public class AvaliMod {
             ABiomes.biomes.clear();
             ABiomes.biomes = null;
         }
+
     }
 }
