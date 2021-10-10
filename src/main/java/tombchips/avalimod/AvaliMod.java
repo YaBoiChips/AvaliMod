@@ -3,6 +3,8 @@ package tombchips.avalimod;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -26,6 +28,7 @@ import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AEntityTypes;
+import tombchips.avalimod.core.AFluids;
 import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.world.ABiomes;
 import tombchips.avalimod.core.world.AFeatures;
@@ -108,6 +111,16 @@ public class AvaliMod {
             AItems.items.clear();
             AItems.items = null;
             LOGGER.info("BYE from Register Items");
+        }
+
+        @SubscribeEvent
+        public static void onFluidRegistry(final RegistryEvent.Register<Fluid> event) {
+            LOGGER.info("HELLO from Register Fluids");
+            AFluids.init();
+            AFluids.fluids.forEach(fluid -> event.getRegistry().register(fluid));
+            AFluids.fluids.clear();
+            AFluids.fluids = null;
+            LOGGER.info("BYE from Register Fluids");
         }
 
         @SubscribeEvent

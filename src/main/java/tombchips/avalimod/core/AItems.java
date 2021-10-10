@@ -1,6 +1,7 @@
 package tombchips.avalimod.core;
 
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -30,7 +31,10 @@ public class AItems {
         }
     };
 
-    public static Item AVALI_LOGO = createItem(new Item(new Item.Properties().fireResistant()), "avali_logo");
+    public static final Item AVALI_LOGO = createItem(new Item(new Item.Properties().fireResistant()), "avali_logo");
+    public static final Item AMMONIA_BUCKET = createItem(new BucketItem(AFluids.AMMONIA, (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1).tab(TAB)), "ammonia_bucket");
+
+
 
     public static Item createItem(Item item, String id) {
         return createItem(item, AvaliMod.createResource(id));
