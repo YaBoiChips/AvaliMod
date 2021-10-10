@@ -59,7 +59,7 @@ public class AmmoniaFluid extends FlowingFluid {
 
     @Override
     protected int getDropOff(IWorldReader p_204528_1_) {
-        return 4;
+        return 1;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class AmmoniaFluid extends FlowingFluid {
 
     @Override
     public int getTickDelay(IWorldReader p_205569_1_) {
-        return 20;
+        return 6;
     }
 
     @Override
