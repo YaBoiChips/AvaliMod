@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -31,6 +32,7 @@ import tombchips.avalimod.client.entity.AvaliEntityRenderer;
 import tombchips.avalimod.common.entity.AvaliEntity;
 import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AEntityTypes;
+import tombchips.avalimod.core.AFluids;
 import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.world.ABiomes;
 import tombchips.avalimod.core.world.AFeatures;
@@ -64,7 +66,7 @@ public class AvaliMod {
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(AEntityTypes.AVALI, manager -> new AvaliEntityRenderer<>(manager));
+        RenderingRegistry.registerEntityRenderingHandler(AEntityTypes.AVALI, AvaliEntityRenderer::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -114,6 +116,16 @@ public class AvaliMod {
             AItems.items.clear();
             AItems.items = null;
             LOGGER.info("BYE from Register Items");
+        }
+
+        @SubscribeEvent
+        public static void onFluidRegistry(final RegistryEvent.Register<Fluid> event) {
+            LOGGER.info("HELLO from Register Fluids");
+            AFluids.init();
+            AFluids.fluids.forEach(fluid -> event.getRegistry().register(fluid));
+            AFluids.fluids.clear();
+            AFluids.fluids = null;
+            LOGGER.info("BYE from Register Fluids");
         }
 
         @SubscribeEvent

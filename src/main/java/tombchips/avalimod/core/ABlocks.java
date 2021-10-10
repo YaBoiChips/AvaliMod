@@ -2,6 +2,7 @@ package tombchips.avalimod.core;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -19,6 +20,9 @@ public class ABlocks {
     public static List<Block> blocks = new ArrayList<>();
 
     public static final FlowingFluidBlock AMMONIA_SOURCE = registerBlock("ammonia_source", new FlowingFluidBlock(() -> AFluids.AMMONIA, AbstractBlock.Properties.of(Material.WATER).strength(100f).noDrops()));
+//    public static final Block AMMONIA_ICE = registerBlock("ammonia_ice",new IceBlock(AbstractBlock.Properties.copy(Blocks.PACKED_ICE)));
+
+
 
     public static final Block AVALON_TELEPORTER = createTeleporterBlock("avalon_teleporter", RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(AvaliMod.MOD_ID, "avalon")));
 
