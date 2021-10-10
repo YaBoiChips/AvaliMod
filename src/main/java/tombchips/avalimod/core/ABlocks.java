@@ -2,7 +2,13 @@ package tombchips.avalimod.core;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import tombchips.avalimod.AvaliMod;
+import tombchips.avalimod.common.blocks.TeleporterBlock;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -14,6 +20,18 @@ public class ABlocks {
 
     public static final FlowingFluidBlock AMMONIA_SOURCE = registerBlock("ammonia_source", new FlowingFluidBlock(() -> AFluids.AMMONIA, AbstractBlock.Properties.of(Material.WATER).strength(100f).noDrops()));
 
+    public static final Block AVALON_TELEPORTER = createTeleporterBlock("avalon_teleporter", RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(AvaliMod.MOD_ID, "avalon")));
+
+
+    static @Nonnull Block createTeleporterBlock(String id, RegistryKey<World> worldRegistryKey) {
+        Block createBlock = new TeleporterBlock(AbstractBlock.Properties.of(Material.METAL).sound(SoundType.STONE).strength(2.0f, 6.0f).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops(), worldRegistryKey);
+        return registerBlock(id, createBlock);
+    }
+
+    static @Nonnull Block createConcreteBlock(String id) {
+        Block dirt = new Block(AbstractBlock.Properties.copy(Blocks.WHITE_CONCRETE));
+        return registerBlock(id, dirt);
+    }
 
     static @Nonnull Block createPlankBlock(String id) {
         Block dirt = new Block(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS));
