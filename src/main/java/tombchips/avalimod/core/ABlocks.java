@@ -20,7 +20,7 @@ public class ABlocks {
     public static List<Block> blocks = new ArrayList<>();
 
     public static final FlowingFluidBlock AMMONIA_SOURCE = registerBlock("ammonia_source", new FlowingFluidBlock(() -> AFluids.AMMONIA, AbstractBlock.Properties.of(Material.WATER).strength(100f).noDrops()));
-//    public static final Block AMMONIA_ICE = registerBlock("ammonia_ice",new IceBlock(AbstractBlock.Properties.copy(Blocks.PACKED_ICE)));
+    public static final Block AMMONIA_ICE = registerBlock("ammonia_ice",new Block(AbstractBlock.Properties.copy(Blocks.PACKED_ICE)));
 
 
 

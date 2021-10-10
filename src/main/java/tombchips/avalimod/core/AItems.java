@@ -34,7 +34,9 @@ public class AItems {
     public static final Item AVALI_LOGO = createItem(new Item(new Item.Properties().fireResistant()), "avali_logo");
     public static final Item AMMONIA_BUCKET = createItem(new BucketItem(AFluids.AMMONIA, (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1).tab(TAB)), "ammonia_bucket");
 
-//    public static final Item AVALON_TELEPORTER = createBlockItem(ABlocks.AVALON_TELEPORTER, new Item.Properties().tab(TAB));
+    public static final Item AVALON_TELEPORTER = createBlockItem(ABlocks.AVALON_TELEPORTER, new Item.Properties().tab(TAB));
+    public static final Item AMMONIA_ICE = createBlockItem(ABlocks.AMMONIA_ICE, new Item.Properties().tab(TAB));
+
 
     public static Item createItem(Item item, String id) {
         return createItem(item, AvaliMod.createResource(id));
