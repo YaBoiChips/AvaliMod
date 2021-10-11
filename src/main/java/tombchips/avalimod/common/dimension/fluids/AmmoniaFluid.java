@@ -84,7 +84,7 @@ public class AmmoniaFluid extends FlowingFluid {
 
     @Override
     protected FluidAttributes createAttributes() {
-        return FluidAttributes.builder(AMMONIA_STILL_TEXTURE, AMMONIA_FLOWING_TEXTURE).color(new Color(195, 255, 255).getRGB()).luminosity(2).density(15).viscosity(5).build(this);
+        return FluidAttributes.builder(AMMONIA_STILL_TEXTURE, AMMONIA_FLOWING_TEXTURE).color(new Color(195, 255, 255).getRGB()).luminosity(0).density(0).viscosity(0).build(this);
     }
 
     @Override

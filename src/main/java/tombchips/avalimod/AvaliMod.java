@@ -149,6 +149,7 @@ public class AvaliMod {
             AEntityTypes.entities = null;
             LOGGER.info("BYE from Register Entities");
         }
+
         @SubscribeEvent
         public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
             LOGGER.debug("Registering features...");
@@ -158,6 +159,7 @@ public class AvaliMod {
             AFeatures.features = null;
             LOGGER.info("Features registered!");
         }
+
         @SubscribeEvent
         public static void registerSurfaceBuilders(RegistryEvent.Register<SurfaceBuilder<?>> event) {
             LOGGER.debug("Registering surface builders...");
@@ -167,6 +169,7 @@ public class AvaliMod {
             ASurfaceBuilders.surfaceBuilders = null;
             LOGGER.info("Surface builders Registered!");
         }
+
         @SubscribeEvent
         public static void registerBiomes(RegistryEvent.Register<Biome> event) {
             // register a new block here
@@ -177,6 +180,5 @@ public class AvaliMod {
             ABiomes.biomes.clear();
             ABiomes.biomes = null;
         }
-
     }
 }

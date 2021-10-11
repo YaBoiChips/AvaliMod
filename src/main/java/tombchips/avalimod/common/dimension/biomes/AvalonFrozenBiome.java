@@ -13,6 +13,8 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 
+import java.awt.*;
+
 public class AvalonFrozenBiome extends BiomeBase {
     static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = ConfiguredSurfaceBuilders.ICE_SPIKES;
     static final Biome.RainType PRECIPATATION = Biome.RainType.SNOW;
@@ -33,7 +35,7 @@ public class AvalonFrozenBiome extends BiomeBase {
                 .waterColor(WATER_COLOR)
                 .waterFogColor(WATER_FOG_COLOR)
                 .fogColor(3158064)
-                .skyColor(0)
+                .skyColor(new Color(255, 90, 35).getRGB())
                 .ambientParticle(new ParticleEffectAmbience(ParticleTypes.WARPED_SPORE, 0.00428F))
                 .ambientLoopSound(SoundEvents.AMBIENT_WARPED_FOREST_LOOP)
                 .ambientMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 6000, 8, 2.0D))

@@ -11,6 +11,7 @@ import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
+import tombchips.avalimod.core.world.AConfiguredStructures;
 
 import java.awt.*;
 
@@ -42,6 +43,7 @@ public class AvalonDesert extends BiomeBase {
                 .backgroundMusic(BackgroundMusicTracks.createGameMusic(SoundEvents.MUSIC_END)).build(), GENERATION_SETTINGS.build(), SPAWN_SETTINGS.build());
     }
     static {
+        GENERATION_SETTINGS.addStructureStart(AConfiguredStructures.VILLAGE_AVALI);
         GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_LAVA);
         GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.IRON_ORE.defaultBlockState(), 10)).range(46).squared().count(22));
     }
