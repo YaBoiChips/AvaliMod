@@ -11,9 +11,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +30,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.resource.ResourceListener;
 import tombchips.avalimod.client.entity.AvaliEntityRenderer;
 import tombchips.avalimod.common.entity.AvaliEntity;
 import tombchips.avalimod.core.ABlocks;
@@ -47,6 +50,8 @@ public class AvaliMod {
 
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "avalimod";
+    public static volatile boolean hasInitialized;
+
 
     public AvaliMod() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -56,6 +61,13 @@ public class AvaliMod {
         GeckoLib.initialize();
 
         MinecraftForge.EVENT_BUS.register(this);
+
+    }
+    synchronized public static void initialize() {
+        if (!hasInitialized) {
+            DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ResourceListener::registerReloadListener);
+        }
+        hasInitialized = true;
     }
 
     public void setup(final FMLCommonSetupEvent event) {

@@ -1,0 +1,15 @@
+{
+  //ITEMS
+  "item.avalimod.ammonia_bucket": "Bucket Of Ammonia",
+
+  //BLOCKS
+  "block.avalimod.ammonia_ice": "Frozen Ammonia",
+
+  //ENTITYS
+  "entity.avalimod.avali": "Avali",
+
+  //FLUIDS
+
+  //TABS
+  "itemGroup.avalimod": "Avali Mod"
+}

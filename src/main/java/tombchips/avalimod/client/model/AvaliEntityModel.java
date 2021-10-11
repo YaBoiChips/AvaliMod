@@ -23,6 +23,6 @@ public class AvaliEntityModel<T extends AvaliEntity> extends AnimatedGeoModel<T>
 
     @Override
     public ResourceLocation getAnimationFileLocation(AvaliEntity animatable) {
-        return new ResourceLocation(AvaliMod.MOD_ID, "animations/avali.animation.json");
+        return new ResourceLocation(AvaliMod.MOD_ID, "animations/avali.animation.walk.json");
     }
 }
