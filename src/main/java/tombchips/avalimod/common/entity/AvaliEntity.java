@@ -43,7 +43,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         return MobEntity.createLivingAttributes().add(Attributes.MAX_HEALTH, 25.0d)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.ATTACK_SPEED, 0.4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.1)
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.FOLLOW_RANGE, 8.0f);
     }
 
@@ -52,7 +52,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
 
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.4D));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 2.05f));
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, false));
@@ -78,7 +78,6 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
             return PlayState.CONTINUE;
         }
         else {return PlayState.STOP;}
-
 
     }
 
