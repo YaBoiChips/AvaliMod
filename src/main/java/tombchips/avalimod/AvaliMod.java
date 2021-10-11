@@ -38,6 +38,7 @@ import tombchips.avalimod.core.AEntityTypes;
 import tombchips.avalimod.core.AFluids;
 import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.world.ABiomes;
+import tombchips.avalimod.core.world.AConfiguredSurfaceBuilders;
 import tombchips.avalimod.core.world.AFeatures;
 import tombchips.avalimod.core.world.ASurfaceBuilders;
 
@@ -74,6 +75,7 @@ public class AvaliMod {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        AConfiguredSurfaceBuilders.register();
         GlobalEntityTypeAttributes.put(AEntityTypes.AVALI, AvaliEntity.setCustiomAttributes().build());
     }
 

@@ -12,17 +12,18 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 import tombchips.avalimod.core.world.AConfiguredStructures;
+import tombchips.avalimod.core.world.AConfiguredSurfaceBuilders;
 
 import java.awt.*;
 
 public class AvalonDesert extends BiomeBase {
-    static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = ConfiguredSurfaceBuilders.DESERT;
-    static final Biome.RainType PRECIPATATION = Biome.RainType.NONE;
+    static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = AConfiguredSurfaceBuilders.AVALON_DESERT;
+    static final Biome.RainType PRECIPATATION = Biome.RainType.SNOW;
     static final Biome.Category CATEGORY = Biome.Category.DESERT;
-    static final float DEPTH = 0.15F;
+    static final float DEPTH = 0.1F;
     static final float SCALE = 0.2F;
-    static final float TEMPERATURE = 29.0F;
-    static final float DOWNFALL = 0.0F;
+    static final float TEMPERATURE = -50.0F;
+    static final float DOWNFALL = 0.9F;
     static final int WATER_COLOR = 1064;
     static final int WATER_FOG_COLOR = 3064;
     static final Biome.Climate WEATHER = new Biome.Climate(PRECIPATATION, TEMPERATURE, Biome.TemperatureModifier.NONE, DOWNFALL);
