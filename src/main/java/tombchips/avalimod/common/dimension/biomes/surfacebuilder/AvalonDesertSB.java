@@ -24,7 +24,7 @@ public class AvalonDesertSB extends SurfaceBuilder<SurfaceBuilderConfig> {
 
     @Override
     public void apply(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        this.buildSurface(random, chunk, biome, x, z, terrainHeight, noise, defaultBlock, ABlocks.AMMONIA_SOURCE.defaultBlockState(), Blocks.SAND.defaultBlockState(), Blocks.SANDSTONE.defaultBlockState(), config.getUnderwaterMaterial(), seaLevel);
+        this.buildSurface(random, chunk, biome, x, z, terrainHeight, noise, defaultBlock, ABlocks.AMMONIA_SOURCE.defaultBlockState(), config.getTopMaterial(), config.getUnderMaterial(), config.getUnderwaterMaterial(), seaLevel);
     }
 
     protected void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, BlockState topBlock, BlockState middleBlock, BlockState underwaterBlock, int seaLevel) {

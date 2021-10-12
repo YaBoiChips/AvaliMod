@@ -2,6 +2,7 @@ package tombchips.avalimod.core;
 
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -44,6 +45,12 @@ public class AItems {
             new Item.Properties().tab(TAB));
     public static final Item AMMONIA_ICE = createBlockItem(ABlocks.AMMONIA_ICE,
             new Item.Properties().tab(TAB));
+
+    //ARMOR ITEMS
+    public static final Item AVALON_HELMET = createItem(new ArmorItem(ArmorMaterial.DIAMOND, EquipmentSlotType.HEAD, new Item.Properties().tab(TAB)), "avalon_helmet");
+    public static final Item AVALON_CHESTPLATE = createItem(new ArmorItem(ArmorMaterial.DIAMOND, EquipmentSlotType.CHEST, new Item.Properties().tab(TAB)), "avalon_chestplate");
+    public static final Item AVALON_LEGGINGS = createItem(new ArmorItem(ArmorMaterial.DIAMOND, EquipmentSlotType.LEGS, new Item.Properties().tab(TAB)), "avalon_leggings");
+    public static final Item AVALON_BOOTS = createItem(new ArmorItem(ArmorMaterial.DIAMOND, EquipmentSlotType.FEET, new Item.Properties().tab(TAB)), "avalon_boots");
 
 
     public static Item createItem(Item item, String id) {

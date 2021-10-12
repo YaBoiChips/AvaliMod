@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Effect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
@@ -33,10 +34,7 @@ import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.resource.ResourceListener;
 import tombchips.avalimod.client.entity.AvaliEntityRenderer;
 import tombchips.avalimod.common.entity.AvaliEntity;
-import tombchips.avalimod.core.ABlocks;
-import tombchips.avalimod.core.AEntityTypes;
-import tombchips.avalimod.core.AFluids;
-import tombchips.avalimod.core.AItems;
+import tombchips.avalimod.core.*;
 import tombchips.avalimod.core.world.ABiomes;
 import tombchips.avalimod.core.world.AConfiguredSurfaceBuilders;
 import tombchips.avalimod.core.world.AFeatures;
@@ -150,6 +148,15 @@ public class AvaliMod {
             AEntityTypes.entities.clear();
             AEntityTypes.entities = null;
             LOGGER.info("BYE from Register Entities");
+        }
+        @SubscribeEvent
+        public static void onEffectRegistry(final RegistryEvent.Register<Effect> event) {
+            LOGGER.info("HELLO from Register Effects");
+            AEffects.init();
+            AEffects.effects.forEach(effect -> event.getRegistry().register(effect));
+            AEffects.effects.clear();
+            AEffects.effects = null;
+            LOGGER.info("BYE from Register Effects");
         }
 
         @SubscribeEvent

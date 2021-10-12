@@ -2,18 +2,25 @@ package tombchips.avalimod.common.dimension.fluids;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
+import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AFluids;
 import tombchips.avalimod.core.AItems;
@@ -65,6 +72,23 @@ public class AmmoniaFluid extends FlowingFluid {
     @Override
     protected boolean canBeReplacedWith(FluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
         return false;
+    }
+
+    @Override
+    public boolean isEntityInside(FluidState state, IWorldReader world, BlockPos pos, Entity entity, double yToTest, Tag<Fluid> tag, boolean testingHead) {
+        return super.isEntityInside(state, world, pos, entity, yToTest, tag, testingHead);
+    }
+
+    @Override
+    public void tick(World world, BlockPos pos, FluidState state) {
+        if (world.dimension() != RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(AvaliMod.MOD_ID, "avalon"))){
+            world.setBlock(pos, Blocks.AIR.defaultBlockState(), 1);
+            this.fizz(world, pos);
+        }
+    }
+
+    private void fizz(IWorld p_180688_1_, BlockPos p_180688_2_) {
+        p_180688_1_.levelEvent(1501, p_180688_2_, 0);
     }
 
     @Override

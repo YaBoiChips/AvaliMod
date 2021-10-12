@@ -1,26 +1,23 @@
 package tombchips.avalimod.common.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.*;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import tombchips.avalimod.AvaliMod;
 
-import java.util.function.Supplier;
+import java.util.Random;
 
-public class AmmoniaFluidBlock extends FlowingFluidBlock {
-    public AmmoniaFluidBlock(FlowingFluid p_i49014_1_, Properties p_i49014_2_) {
-        super(p_i49014_1_, p_i49014_2_);
-    }
+public class AmmoniaIceBlock extends Block {
 
-    public AmmoniaFluidBlock(Supplier<? extends FlowingFluid> supplier, Properties p_i48368_1_) {
-        super(supplier, p_i48368_1_);
+    public AmmoniaIceBlock(Properties p_i48440_1_) {
+        super(p_i48440_1_);
     }
 
     @Override
