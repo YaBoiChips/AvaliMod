@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     private AnimationFactory factory = new AnimationFactory(this);
+    public static float movementSpeed = 0.45f;
 
     public AvaliEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
          super(type, worldIn);
@@ -43,8 +44,9 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         return MobEntity.createLivingAttributes().add(Attributes.MAX_HEALTH, 25.0d)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.ATTACK_SPEED, 0.4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.MOVEMENT_SPEED, movementSpeed)
                 .add(Attributes.FOLLOW_RANGE, 8.0f);
+
     }
 
     @Override
@@ -52,7 +54,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
 
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 2.05f));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, movementSpeed));
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, false));
