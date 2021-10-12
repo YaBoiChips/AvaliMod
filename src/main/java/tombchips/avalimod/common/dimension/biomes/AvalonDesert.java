@@ -6,6 +6,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
@@ -20,7 +21,7 @@ public class AvalonDesert extends BiomeBase {
     static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = AConfiguredSurfaceBuilders.AVALON_DESERT;
     static final Biome.RainType PRECIPATATION = Biome.RainType.SNOW;
     static final Biome.Category CATEGORY = Biome.Category.DESERT;
-    static final float DEPTH = 0.1F;
+    static final float DEPTH = 0.19F;
     static final float SCALE = 0.2F;
     static final float TEMPERATURE = -50.0F;
     static final float DOWNFALL = 0.9F;
@@ -46,6 +47,7 @@ public class AvalonDesert extends BiomeBase {
     static {
         GENERATION_SETTINGS.addStructureStart(AConfiguredStructures.VILLAGE_AVALI);
         GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_LAVA);
+        GENERATION_SETTINGS.addCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.CAVE);
         GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.IRON_ORE.defaultBlockState(), 10)).range(46).squared().count(22));
     }
 }
