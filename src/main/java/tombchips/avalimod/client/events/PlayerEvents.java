@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.AEffects;
 import tombchips.avalimod.core.AItems;
@@ -42,7 +41,7 @@ public class PlayerEvents {
         if (!fireUuidMap.containsKey(player.getUUID())){
             fireUuidMap.put(player.getUUID(), false);
         }
-        System.out.println(fireUuidMap.get(player.getUUID()));
+       // System.out.println(fireUuidMap.get(player.getUUID()));
         for (int x1 = player.blockPosition().getX() - 4; x1 <= player.blockPosition().getX() + 4; ++x1) {
             for (int y1 = player.blockPosition().getY() - 2; y1 <= player.blockPosition().getY() + 2; ++y1) {
                 for (int z1 = player.blockPosition().getZ() - 4; z1 <= player.blockPosition().getZ() + 4; ++z1) {
