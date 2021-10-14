@@ -1,24 +1,24 @@
 package tombchips.avalimod.client.model;
 
 import net.minecraft.util.ResourceLocation;
-import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
+import tombchips.avalimod.AvaliMod;
 
 
 public class WallTapestryTileModel extends AnimatedGeoModel {
     @Override
     public ResourceLocation getAnimationFileLocation(Object entity) {
-        return new ResourceLocation(GeckoLib.ModID, "animations/tapestry.animation.json");
+        return new ResourceLocation(AvaliMod.MOD_ID, "animations/tapestry.animation.json");
     }
 
     @Override
     public ResourceLocation getModelLocation(Object animatable) {
-        return new ResourceLocation(GeckoLib.ModID, "geo/softtapestry.json");
+        return new ResourceLocation(AvaliMod.MOD_ID, "geo/softtapestry.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureLocation(Object entity) {
-        return new ResourceLocation(GeckoLib.ModID, "textures/block/walltapestry.png");
+        return new ResourceLocation(AvaliMod.MOD_ID, "textures/block/walltapestry.png");
     }
 
 }

@@ -61,6 +61,8 @@ public class AItems {
             new Item.Properties().tab(TAB));
     public static final Item CEILING_LIGHT = createBlockItem(ABlocks.CEILING_LIGHT,
             new Item.Properties().tab(TAB));
+    public static final Item WALL_TAPESTRY = createBlockItem(ABlocks.WALL_TAPESTRY,
+            new Item.Properties().tab(TAB));
 
     //ARMOR ITEMS
     public static final Item AVALON_HELMET = createItem(new ArmorItem(ArmorMaterial.DIAMOND, EquipmentSlotType.HEAD, new Item.Properties().tab(TAB)), "avalon_helmet");

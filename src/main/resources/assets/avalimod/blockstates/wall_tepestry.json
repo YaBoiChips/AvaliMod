@@ -1,0 +1,10 @@
+{
+
+  "variants": {
+    "facing=north":{ "model": "minecraft:block/banner", "y": 270},
+    "facing=south":{ "model": "minecraft:block/banner", "y": 90 },
+    "facing=east":{ "model": "minecraft:block/banner"},
+    "facing=west":{ "model": "minecraft:block/banner", "y": 180}
+  }
+
+}

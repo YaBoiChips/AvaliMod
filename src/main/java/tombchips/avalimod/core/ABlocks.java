@@ -28,7 +28,7 @@ public class ABlocks {
 
     public static final Block FABRIC_BLOCK = registerBlock("fabric_block",new Block(AbstractBlock.Properties.copy(Blocks.YELLOW_WOOL)));
     public static final Block FABRIC_SLAB = registerBlock("fabric_slab",new SlabBlock(AbstractBlock.Properties.copy(Blocks.YELLOW_WOOL)));
-    public static final Block WALL_TAPESTRY = registerBlock("wall_tepestry",new WallTapestryBlock(AbstractBlock.Properties.copy(Blocks.YELLOW_WOOL)));
+    public static final Block WALL_TAPESTRY = registerBlock("wall_tepestry",new WallTapestryBlock(AbstractBlock.Properties.copy(Blocks.YELLOW_WOOL).noOcclusion()));
     public static final Block NANOCANVAS_BLOCK = registerBlock("nanocanvas_block",new Block(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL)));
     public static final Block NANOCANVAS_SLAB = registerBlock("nanocanvas_slab",new SlabBlock(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL)));
     public static final Block FABRIC_TRIM = registerBlock("fabric_trim", new RotateableBlock(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL)));
