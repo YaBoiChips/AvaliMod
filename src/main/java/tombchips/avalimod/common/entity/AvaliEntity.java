@@ -5,6 +5,10 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
@@ -18,12 +22,15 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AEntityTypes;
 import tombchips.avalimod.core.AItems;
 
 import javax.annotation.Nullable;
 
 public class AvaliEntity extends AgeableEntity implements IAnimatable {
+
+    private static final DataParameter<Boolean> SLEEPING = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.BOOLEAN);
 
     private AnimationFactory factory = new AnimationFactory(this);
     public static float movementSpeed = 0.45f;
@@ -38,6 +45,42 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 //    public EntitySize getDimensions(Pose p_213305_1_) {
 //        return super.getDimensions(p_213305_1_);
 //    }
+
+
+    @Override
+    protected void defineSynchedData() {
+        this.entityData.define(SLEEPING, false);
+        super.defineSynchedData();
+    }
+
+    @Override
+    public void aiStep() {
+        if(!this.level.isClientSide){
+            if(this.canSleep(this) && this.level.isNight()){
+                this.setSleeping(true);
+                movementSpeed = 0;
+            }
+            else {
+                this.setSleeping(false);
+                movementSpeed = 0.45f;
+
+            }
+        }
+        super.aiStep();
+
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.readAdditionalSaveData(compoundNBT);
+        this.setSleeping(compoundNBT.getBoolean("Avali_Sleeping"));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.addAdditionalSaveData(compoundNBT);
+        compoundNBT.putBoolean("Avali_Sleeping", this.isSleeping());
+    }
 
     @Nullable
     @Override
@@ -102,9 +145,22 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
             controller.setAnimation(new AnimationBuilder().addAnimation("avali.animation.walk", true));
             return PlayState.CONTINUE;
         }
+        else if(canSleep(this)){
+            controller.setAnimation(new AnimationBuilder().addAnimation("avali.animation.sleep", true));
+            return PlayState.CONTINUE;
+        }
         else {return PlayState.STOP;}
 
+
     }
+
+    public boolean canSleep(AvaliEntity entity) {
+        return entity.getBlockStateOn() == ABlocks.FABRIC_BLOCK.defaultBlockState() || entity.getBlockStateOn() == ABlocks.FABRIC_SLAB.defaultBlockState();
+
+
+    }
+
+
 
     @Override
     public void registerControllers(AnimationData data) {
@@ -114,6 +170,17 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+
+    //get the sets of setters and your nan
+
+    public void setSleeping(boolean sit){
+        this.entityData.set(SLEEPING, sit);
+    }
+
+    public boolean isSleeping(){
+        return this.entityData.get(SLEEPING);
     }
 }
 
