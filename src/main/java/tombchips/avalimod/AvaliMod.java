@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
@@ -138,6 +139,15 @@ public class AvaliMod {
             AFluids.fluids.clear();
             AFluids.fluids = null;
             LOGGER.info("BYE from Register Fluids");
+        }
+        @SubscribeEvent
+        public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> event) {
+            AvaliMod.LOGGER.debug("AvaliMod: Registering tile entities...");
+            ATileEntityTypes.init();
+            ATileEntityTypes.tileentity.forEach(entityType -> event.getRegistry().register(entityType));
+            ATileEntityTypes.tileentity.clear();
+            ATileEntityTypes.tileentity = null;
+            AvaliMod.LOGGER.info("AvaliMod: Tile Entities registered!");
         }
 
         @SubscribeEvent

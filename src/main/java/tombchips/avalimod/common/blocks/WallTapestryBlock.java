@@ -24,9 +24,9 @@ public class WallTapestryBlock extends Block {
         return super.createTileEntity(state, world);
     }
 
-    @Override
-    public BlockRenderType getRenderType(BlockState state)
-    {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
-    }
+//    @Override
+//    public BlockRenderType getRenderType(BlockState state)
+//    {
+//        return BlockRenderType.ENTITYBLOCK_ANIMATED;
+//    }
 }
