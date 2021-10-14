@@ -1,15 +1,22 @@
 {
-  //ITEMS
+
   "item.avalimod.ammonia_bucket": "Bucket Of Ammonia",
+  "item.avalimod.avali_spawn_egg": "Avali Spawn Egg",
 
-  //BLOCKS
   "block.avalimod.ammonia_ice": "Frozen Ammonia",
+  "block.avalimod.fabric_block": "Soft Tapestry Block",
+  "block.avalimod.nanocanvas_block": "Nanocanvas Block",
+  "block.avalimod.tech_block": "Tech Block",
+  "block.avalimod.fabric_trim": "Fabric Trim",
+  "block.avalimod.nanofiber_pole": "Nanofiber Pole",
 
-  //ENTITYS
+
   "entity.avalimod.avali": "Avali",
 
-  //FLUIDS
 
-  //TABS
+
+
+
+
   "itemGroup.avalimod": "Avali Mod"
 }

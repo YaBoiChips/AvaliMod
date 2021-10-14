@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "avalimod:block/nanocanvas_slab"
+    },
+    "type=double": {
+      "model": "avalimod:block/nanocanvas_block"
+    },
+    "type=top": {
+      "model": "avalimod:block/nanocanvas_slab_top"
+    }
+  }
+}

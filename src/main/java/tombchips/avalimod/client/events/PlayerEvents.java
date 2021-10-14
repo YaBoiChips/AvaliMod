@@ -68,7 +68,7 @@ public class PlayerEvents {
     public static void playerHasNoSuit(TickEvent.PlayerTickEvent event){
         PlayerEntity player = event.player;
         World world = player.level;
-        System.out.println(warmthUuidMap.get(player.getUUID()));
+        //System.out.println(warmthUuidMap.get(player.getUUID()));
         if (event.phase != TickEvent.Phase.END || world.isClientSide) return;
         if (player.level.dimension() == RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(AvaliMod.MOD_ID, "avalon"))) {
             if (!player.isCreative()) {

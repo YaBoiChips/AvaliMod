@@ -1,8 +1,6 @@
 package tombchips.avalimod.client.model;
 
 
-import net.minecraft.client.renderer.entity.model.AgeableModel;
-
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import tombchips.avalimod.AvaliMod;
@@ -23,6 +21,6 @@ public class AvaliEntityModel<T extends AvaliEntity> extends AnimatedGeoModel<T>
 
     @Override
     public ResourceLocation getAnimationFileLocation(AvaliEntity animatable) {
-        return new ResourceLocation(AvaliMod.MOD_ID, "animations/avali.animation.walk.json");
+        return new ResourceLocation(AvaliMod.MOD_ID, "animations/avali.animation.json");
     }
 }

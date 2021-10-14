@@ -1,0 +1,10 @@
+{
+
+  "variants": {
+    "facing=north":{ "model": "avalimod:block/tech_block", "y": 270},
+    "facing=south":{ "model": "avalimod:block/tech_block", "y": 90 },
+    "facing=east":{ "model": "avalimod:block/tech_block"},
+    "facing=west":{ "model": "avalimod:block/tech_block", "y": 180}
+  }
+
+}

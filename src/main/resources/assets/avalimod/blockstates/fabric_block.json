@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "avalimod:block/fabric_block"
+    }
+  }
+}

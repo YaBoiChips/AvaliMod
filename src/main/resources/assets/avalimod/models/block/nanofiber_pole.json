@@ -1,0 +1,17 @@
+{
+
+	"parent": "minecraft:block/cube",
+	"textures": {
+
+		"down": "avalimod:block/nanofiber_pole/nanofiber_pole_bottom",
+		"up": "avalimod:block/nanofiber_pole/nanofiber_pole_top",
+		"north": "avalimod:block/nanofiber_pole/nanofiber_pole_north",
+		"east": "avalimod:block/nanofiber_pole/nanofiber_pole_east",
+		"south": "avalimod:block/nanofiber_pole/nanofiber_pole_south",
+		"west": "avalimod:block/nanofiber_pole/nanofiber_pole_west",
+
+		"particle": "avalimod:block/nanofiber_pole/nanofiber_pole_west"
+	}
+
+
+}

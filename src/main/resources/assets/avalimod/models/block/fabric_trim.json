@@ -1,0 +1,17 @@
+{
+
+	"parent": "minecraft:block/cube",
+	"textures": {
+
+		"down": "avalimod:block/fabric_trim/fabric_trim_bottom",
+		"up": "avalimod:block/fabric_trim/fabric_trim_top",
+		"north": "avalimod:block/fabric_trim/fabric_trim_north",
+		"east": "avalimod:block/fabric_trim/fabric_trim_east",
+		"south": "avalimod:block/fabric_trim/fabric_trim_south",
+		"west": "avalimod:block/fabric_trim/fabric_trim_west",
+
+		"particle": "avalimod:block/fabric_trim/fabric_trim_west"
+	}
+
+
+}

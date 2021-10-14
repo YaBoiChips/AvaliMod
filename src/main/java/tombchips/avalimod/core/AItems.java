@@ -1,7 +1,6 @@
 package tombchips.avalimod.core;
 
 import net.minecraft.block.Block;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
@@ -38,12 +37,29 @@ public class AItems {
             (new Item.Properties().fireResistant()), "avali_logo");
     public static final Item AMMONIA_BUCKET = createItem(new BucketItem(AFluids.AMMONIA,
             (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1).tab(TAB)), "ammonia_bucket");
-    public static final Item AVALI_SPAWN_EGG = createItem(new SpawnEggItem(AEntityTypes.AVALI, new Color(190, 205, 255).getRGB(),new Color(100, 105, 255).getRGB(), new Item.Properties().tab(TAB)), "avali_spawn_egg");
+    public static final Item AVALI_SPAWN_EGG = createItem(new SpawnEggItem(AEntityTypes.AVALI,
+            new Color(190, 205, 255).getRGB(), new Color(100, 105, 255).getRGB(), new Item.Properties().tab(TAB)), "avali_spawn_egg");
 
     //BLOCK ITEMS
     public static final Item AVALON_TELEPORTER = createBlockItem(ABlocks.AVALON_TELEPORTER,
             new Item.Properties().tab(TAB));
     public static final Item AMMONIA_ICE = createBlockItem(ABlocks.AMMONIA_ICE,
+            new Item.Properties().tab(TAB));
+    public static final Item FABRIC_BLOCK = createBlockItem(ABlocks.FABRIC_BLOCK,
+            new Item.Properties().tab(TAB));
+    public static final Item FABRIC_SLAB = createBlockItem(ABlocks.FABRIC_SLAB,
+            new Item.Properties().tab(TAB));
+    public static final Item NANOCANVAS_BLOCK = createBlockItem(ABlocks.NANOCANVAS_BLOCK,
+            new Item.Properties().tab(TAB));
+    public static final Item NANOCANVAS_SLAB = createBlockItem(ABlocks.NANOCANVAS_SLAB,
+            new Item.Properties().tab(TAB));
+    public static final Item FABRIC_TRIM = createBlockItem(ABlocks.FABRIC_TRIM,
+            new Item.Properties().tab(TAB));
+    public static final Item TECH_BLOCK = createBlockItem(ABlocks.TECH_BLOCK,
+            new Item.Properties().tab(TAB));
+    public static final Item NANOFIBER_POLE = createBlockItem(ABlocks.NANOFIBER_POLE,
+            new Item.Properties().tab(TAB));
+    public static final Item CEILING_LIGHT = createBlockItem(ABlocks.CEILING_LIGHT,
             new Item.Properties().tab(TAB));
 
     //ARMOR ITEMS

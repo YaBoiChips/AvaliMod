@@ -1,0 +1,10 @@
+{
+
+  "variants": {
+    "facing=north":{ "model": "avalimod:block/fabric_trim", "y": 270},
+    "facing=south":{ "model": "avalimod:block/fabric_trim", "y": 90 },
+    "facing=east":{ "model": "avalimod:block/fabric_trim"},
+    "facing=west":{ "model": "avalimod:block/fabric_trim", "y": 180}
+  }
+
+}

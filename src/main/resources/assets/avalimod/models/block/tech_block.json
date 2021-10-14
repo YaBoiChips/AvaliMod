@@ -1,0 +1,17 @@
+{
+
+	"parent": "minecraft:block/cube",
+	"textures": {
+
+		"down": "avalimod:block/tech_block/tech_block_bottom",
+		"up": "avalimod:block/tech_block/tech_block_top",
+		"north": "avalimod:block/tech_block/tech_block_north",
+		"east": "avalimod:block/tech_block/tech_block_east",
+		"south": "avalimod:block/tech_block/tech_block_south",
+		"west": "avalimod:block/tech_block/tech_block_west",
+
+		"particle": "avalimod:block/tech_block/tech_block_west"
+	}
+
+
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "avalimod:block/fabric_slab"
+    },
+    "type=double": {
+      "model": "avalimod:block/fabric_block"
+    },
+    "type=top": {
+      "model": "avalimod:block/fabric_slab_top"
+    }
+  }
+}

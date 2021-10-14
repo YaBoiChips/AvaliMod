@@ -1,0 +1,10 @@
+{
+
+  "variants": {
+    "facing=north":{ "model": "avalimod:block/nanofiber_pole", "y": 270},
+    "facing=south":{ "model": "avalimod:block/nanofiber_pole", "y": 90 },
+    "facing=east":{ "model": "avalimod:block/nanofiber_pole"},
+    "facing=west":{ "model": "avalimod:block/nanofiber_pole", "y": 180}
+  }
+
+}
