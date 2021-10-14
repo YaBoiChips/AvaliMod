@@ -1,13 +1,12 @@
 package tombchips.avalimod.common.entity;
 
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
@@ -19,6 +18,8 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import tombchips.avalimod.core.AEntityTypes;
+import tombchips.avalimod.core.AItems;
 
 import javax.annotation.Nullable;
 
@@ -32,6 +33,11 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
 
     }
+
+//    @Override
+//    public EntitySize getDimensions(Pose p_213305_1_) {
+//        return super.getDimensions(p_213305_1_);
+//    }
 
     @Nullable
     @Override
@@ -59,6 +65,23 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, false));
 
+    }
+
+    @Override
+    protected ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+        if (player.getItemInHand(hand).getItem() == AItems.AVALI_SPAWN_EGG){
+            AvaliEntity entity = new AvaliEntity(AEntityTypes.AVALI, this.level);
+            entity.isBaby();
+            entity.setPos(this.getX(), this.getY(), this.getZ());
+            this.level.addFreshEntity(entity);
+            return ActionResultType.SUCCESS;
+        }
+        else return ActionResultType.FAIL;
+    }
+
+    @Override
+    public boolean canBreed() {
+        return !this.isBaby();
     }
 
 

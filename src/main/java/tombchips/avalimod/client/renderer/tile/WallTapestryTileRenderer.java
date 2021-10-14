@@ -7,7 +7,9 @@ import tombchips.avalimod.client.model.WallTapestryTileModel;
 import tombchips.avalimod.common.te.WallTapestryTE;
 
 public class WallTapestryTileRenderer extends GeoBlockRenderer<WallTapestryTE> {
-    public WallTapestryTileRenderer(TileEntityRendererDispatcher rendererDispatcherIn, AnimatedGeoModel modelProvider) {
+    public WallTapestryTileRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn, new WallTapestryTileModel());
     }
+
+
 }
