@@ -30,36 +30,28 @@ public class WallTapestryBlock extends DirectionalBlock {
 
     public static VoxelShape makeNorth(){
         VoxelShape shape = VoxelShapes.empty();
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.8125, 1.921875, 0.9375, 0.875, 1.984375, 1), IBooleanFunction.OR);
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.125, 1.921875, 0.9375, 0.1875, 1.984375, 1), IBooleanFunction.OR);
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.09375, 1.921875, 0.875, 0.90625, 1.984375, 0.9375), IBooleanFunction.OR);
+        shape = VoxelShapes.join(shape, VoxelShapes.box(0.125, 0.125, 0.8125, 0.875, 2, 1), IBooleanFunction.OR);
 
         return shape;
     }
 
     public static VoxelShape makeSouth(){
         VoxelShape shape = VoxelShapes.empty();
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.8125, 1.921875, 0.9375, 0.875, 1.984375, 1), IBooleanFunction.OR);
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.125, 1.921875, 0.9375, 0.1875, 1.984375, 1), IBooleanFunction.OR);
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.09375, 1.921875, 0.875, 0.90625, 1.984375, 0.9375), IBooleanFunction.OR);
+        shape = VoxelShapes.join(shape, VoxelShapes.box(0.125, 0.125, 0.8125, 0.875, 2, 1), IBooleanFunction.OR);
 
         return shape;
     }
 
     public static VoxelShape makeWest(){
         VoxelShape shape = VoxelShapes.empty();
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.8125, 1.921875, 0.9375, 0.875, 1.984375, 1), IBooleanFunction.OR);
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.125, 1.921875, 0.9375, 0.1875, 1.984375, 1), IBooleanFunction.OR);
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.09375, 1.921875, 0.875, 0.90625, 1.984375, 0.9375), IBooleanFunction.OR);
+        shape = VoxelShapes.join(shape, VoxelShapes.box(0.125, 0.125, 0.8125, 0.875, 2, 1), IBooleanFunction.OR);
 
         return shape;
     }
 
     public static VoxelShape makeEast(){
         VoxelShape shape = VoxelShapes.empty();
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.8125, 1.921875, 0.9375, 0.875, 1.984375, 1), IBooleanFunction.OR);
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.125, 1.921875, 0.9375, 0.1875, 1.984375, 1), IBooleanFunction.OR);
-        shape = VoxelShapes.join(shape, VoxelShapes.box(0.09375, 1.921875, 0.875, 0.90625, 1.984375, 0.9375), IBooleanFunction.OR);
+        shape = VoxelShapes.join(shape, VoxelShapes.box(0.125, 0.125, 0.8125, 0.875, 2, 1), IBooleanFunction.OR);
 
         return shape;
     }

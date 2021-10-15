@@ -23,7 +23,7 @@ public class WallTapestryTE extends TileEntity implements IAnimatable {
         AnimationController controller = event.getController();
         controller.transitionLengthTicks = 0;
 
-        controller.setAnimation(new AnimationBuilder().addAnimation("Botarium.anim.deploy", true));
+        controller.setAnimation(new AnimationBuilder().addAnimation("animation.tapestry", true));
         return PlayState.CONTINUE;
     }
 
