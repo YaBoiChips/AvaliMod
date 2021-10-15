@@ -93,8 +93,6 @@ public class WallTapestryBlock extends DirectionalBlock {
         builder.add(FACING);
     }
 
-
-
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext p_196258_1_) {
         BlockState blockstate = this.defaultBlockState();
@@ -112,6 +110,4 @@ public class WallTapestryBlock extends DirectionalBlock {
         }
         return null;
     }
-
-
 }
