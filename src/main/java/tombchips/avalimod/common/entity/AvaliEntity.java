@@ -10,6 +10,8 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.*;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -23,8 +25,11 @@ import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AEntityTypes;
 import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.ASounds;
+import tombchips.avalimod.util.Maths;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
@@ -34,26 +39,12 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     public static float movementSpeed = 0.45f;
     public static final EntitySize AVALI_SIZE = EntitySize.scalable(0.6f, 1.63f);
     public static final EntitySize BABY_SIZE = EntitySize.scalable(0.3f, 0.815f);
-    public static int VARIANT;
+    private static final DataParameter<Integer> COLOUR = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.INT);
     public AvaliEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public static final String[] TEXTURES = {
 
-            "avalimod:textures/entity/avalitextures/avali1.png",
-            "avalimod:textures/entity/avalitextures/avali2.png",
-            "avalimod:textures/entity/avalitextures/avali3.png",
-            "avalimod:textures/entity/avalitextures/avali4.png",
-            "avalimod:textures/entity/avalitextures/avali5.png",
-            "avalimod:textures/entity/avalitextures/avali6.png"
-    };
-
-    public void setVariant()
-    {
-        this.VARIANT = random.nextInt(6);
-
-    }
 
     @Override
     public EntitySize getDimensions(Pose p_213305_1_) {
@@ -62,12 +53,21 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         } else return AVALI_SIZE;
     }
 
+    @Override
+    public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT p_213386_5_) {
+        setSkinColor(getRandomGeckoColor(random));
+        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, p_213386_5_);
+    }
 
     @Override
     protected void defineSynchedData() {
         this.entityData.define(SLEEPING, false);
+        this.entityData.define(COLOUR, 0);
+
         super.defineSynchedData();
     }
+
+
 
 
     @Override
@@ -90,12 +90,17 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     public void readAdditionalSaveData(CompoundNBT compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         this.setSleeping(compoundNBT.getBoolean("Avali_Sleeping"));
+        this.setRawFlag(compoundNBT.getInt("Flag"));
+
+
     }
 
     @Override
     public void addAdditionalSaveData(CompoundNBT compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.putBoolean("Avali_Sleeping", this.isSleeping());
+        compoundNBT.putInt("Flag", this.getRawFlag());
+
     }
 
     @Nullable
@@ -192,6 +197,61 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     public boolean isSleeping() {
         return this.entityData.get(SLEEPING);
+    }
+
+    public void setSkinColor(@Nonnull SkinColors color) {
+        setFlags(color);
+    }
+
+    public void setFlags(@Nonnull SkinColors color) {
+        setRawFlag((color.ordinal() & Byte.MAX_VALUE) << 16);
+    }
+
+    public int getRawFlag() {
+        return entityData.get(COLOUR);
+    }
+
+
+    public void setRawFlag(int flag) {
+        entityData.set(COLOUR, flag);
+    }
+
+    public SkinColors getSkinColor() {
+        return SkinColors.byIndex((getRawFlag() >> 16) & Byte.MAX_VALUE);
+    }
+
+    public static SkinColors getRandomGeckoColor(@Nonnull Random random) {
+        int i = random.nextInt(13);
+
+        if (i <= 0) {
+            return SkinColors.GREEN;
+        } else if (i <= 3) {
+            return SkinColors.YELLOW;
+        } else if (i <= 5) {
+            return SkinColors.PURPLE;
+        } else if (i <= 7) {
+            return SkinColors.ORANGE;
+        } else if (i <= 9) {
+            return SkinColors.BLUE;
+        } else if (i <= 10) {
+            return SkinColors.RED;
+        } else {
+            return SkinColors.BLUE;
+        }
+    }
+
+
+    public enum SkinColors {
+        BLUE(),
+        GREEN(),
+        YELLOW(),
+        PURPLE(),
+        RED(),
+        ORANGE();
+
+        public static SkinColors byIndex(int index) {
+            return Maths.get(SkinColors.values(), index);
+        }
     }
 
 }

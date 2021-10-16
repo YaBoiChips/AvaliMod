@@ -1,0 +1,12 @@
+{
+  "gecko.hurt": {
+    "catagory": "avali",
+    "subtitle": "avali.death",
+    "sounds": [
+      {
+        "name": "avalimod:avali/avali.death",
+        "stream": false
+      }
+    ]
+  }
+}
