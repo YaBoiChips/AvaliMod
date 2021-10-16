@@ -55,7 +55,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT p_213386_5_) {
-        setSkinColor(getRandomGeckoColor(random));
+        setSkinColor(getRandomAvaliColor(random));
         return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, p_213386_5_);
     }
 
@@ -136,6 +136,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
             AvaliEntity entity = new AvaliEntity(AEntityTypes.AVALI, this.level);
             entity.setAge(-1000);
             entity.setPos(this.getX(), this.getY(), this.getZ());
+            entity.setSkinColor(getRandomAvaliColor(random));
             this.level.addFreshEntity(entity);
             return ActionResultType.SUCCESS;
         } else return ActionResultType.FAIL;
@@ -220,7 +221,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         return SkinColors.byIndex((getRawFlag() >> 16) & Byte.MAX_VALUE);
     }
 
-    public static SkinColors getRandomGeckoColor(@Nonnull Random random) {
+    public static SkinColors getRandomAvaliColor(@Nonnull Random random) {
         int i = random.nextInt(13);
 
         if (i <= 0) {
