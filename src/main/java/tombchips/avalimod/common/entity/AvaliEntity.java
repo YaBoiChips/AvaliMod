@@ -1,27 +1,15 @@
 package tombchips.avalimod.common.entity;
 
-import com.google.common.collect.Lists;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.Path;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -37,8 +25,6 @@ import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.ASounds;
 
 import javax.annotation.Nullable;
-import java.util.EnumSet;
-import java.util.List;
 
 public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
@@ -48,9 +34,25 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     public static float movementSpeed = 0.45f;
     public static final EntitySize AVALI_SIZE = EntitySize.scalable(0.6f, 1.63f);
     public static final EntitySize BABY_SIZE = EntitySize.scalable(0.3f, 0.815f);
-
+    public static int VARIANT;
     public AvaliEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
         super(type, worldIn);
+    }
+
+    public static final String[] TEXTURES = {
+
+            "avalimod:textures/entity/avalitextures/avali1.png",
+            "avalimod:textures/entity/avalitextures/avali2.png",
+            "avalimod:textures/entity/avalitextures/avali3.png",
+            "avalimod:textures/entity/avalitextures/avali4.png",
+            "avalimod:textures/entity/avalitextures/avali5.png",
+            "avalimod:textures/entity/avalitextures/avali6.png"
+    };
+
+    public void setVariant()
+    {
+        this.VARIANT = random.nextInt(6);
+
     }
 
     @Override
@@ -118,7 +120,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, movementSpeed));
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, false));
 
     }
