@@ -34,6 +34,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AEntityTypes;
 import tombchips.avalimod.core.AItems;
+import tombchips.avalimod.core.ASounds;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -142,7 +143,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     @Override
     protected SoundEvent getDeathSound() {
 
-        return SoundEvents.CAT_DEATH;
+        return ASounds.AVALI_DEATH;
     }
 
 
