@@ -9,7 +9,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -73,14 +75,20 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     @Override
     public void tick() {
         if (!this.level.isClientSide) {
-            if (this.canSleep(this) && this.level.isNight()) {
-                this.setSleeping(true);
-                this.setNoAi(true);
+            int i = this.random.nextInt(100);
+            System.out.println(i);
+            i--;
+            if(i <= 0){
+                if (this.canSleep(this) && this.level.isNight()) {
+                    this.setSleeping(true);
+                    this.setNoAi(true);
 
-            } else {
-                this.setSleeping(false);
-                this.setNoAi(false);
+                } else {
+                    this.setSleeping(false);
+                    this.setNoAi(false);
+                }
             }
+
         }
         super.tick();
 
@@ -152,7 +160,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
         return ASounds.AVALI_DEATH;
     }
-
+    
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         AnimationController controller = event.getController();
@@ -162,6 +170,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
             controller.setAnimation(new AnimationBuilder().addAnimation("avali.animation.walk", true));
             return PlayState.CONTINUE;
         } else if (isSleeping()) {
+
             controller.setAnimation(new AnimationBuilder().addAnimation("avali.animation.sleep", true));
             return PlayState.CONTINUE;
         } else {
