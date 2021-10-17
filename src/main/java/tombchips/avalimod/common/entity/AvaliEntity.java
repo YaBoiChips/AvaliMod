@@ -9,9 +9,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -23,6 +21,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AEntityTypes;
 import tombchips.avalimod.core.AItems;
@@ -37,6 +36,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> SLEEPING = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.BOOLEAN);
 
+    int sleepTime = 0;
     private AnimationFactory factory = new AnimationFactory(this);
     public static float movementSpeed = 0.45f;
     public static final EntitySize AVALI_SIZE = EntitySize.scalable(0.6f, 1.63f);
@@ -75,10 +75,13 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     @Override
     public void tick() {
         if (!this.level.isClientSide) {
-            int i = this.random.nextInt(100);
-            System.out.println(i);
-            i--;
-            if(i <= 0){
+
+
+
+            sleepTime--;
+            if(sleepTime <= 0){
+                sleepTime = this.random.nextInt(100);
+                System.out.println(sleepTime);
                 if (this.canSleep(this) && this.level.isNight()) {
                     this.setSleeping(true);
                     this.setNoAi(true);
@@ -160,7 +163,20 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
         return ASounds.AVALI_DEATH;
     }
-    
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ASounds.AVALI_GENERAL;
+    }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+        return ASounds.AVALI_SOUND_DAMAGE;
+    }
+
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 200;
+    }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         AnimationController controller = event.getController();
@@ -262,6 +278,10 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
             return Maths.get(SkinColors.values(), index);
         }
     }
+
+    @Override
+    protected ResourceLocation getDefaultLootTable() {return new ResourceLocation(AvaliMod.MOD_ID,"avalimod/loot_tables/entity/avali.json");}
+
 
 }
 

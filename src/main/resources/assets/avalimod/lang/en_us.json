@@ -4,19 +4,23 @@
   "item.avalimod.avali_spawn_egg": "Avali Spawn Egg",
 
   "block.avalimod.ammonia_ice": "Frozen Ammonia",
-  "block.avalimod.fabric_block": "Soft Tapestry Block",
+  "block.avalimod.fabric_block": "Soft Fabric Block",
   "block.avalimod.nanocanvas_block": "Nanocanvas Block",
+  "block.avalimod.fabric_slab": "Soft Fabric Slab",
+  "block.avalimod.nanocanvas_slab": "Nanocanvas Slab",
   "block.avalimod.tech_block": "Tech Block",
   "block.avalimod.fabric_trim": "Fabric Trim",
   "block.avalimod.nanofiber_pole": "Nanofiber Pole",
+  "block.avalimod.avalon_stone": "Avalon Stone",
+  "block.avalimod.frozen_avalon_stone": "Frozen Avalon Stone",
 
 
   "entity.avalimod.avali": "Avali",
 
 
+  "itemGroup.avalimod": "Avali Mod",
 
-
-
-
-  "itemGroup.avalimod": "Avali Mod"
+  "avali_general.sub": "Avali squeaks",
+  "avali_sound_damage.sub": "Avali hurts",
+  "avali_death.sub": "Avali dies"
 }

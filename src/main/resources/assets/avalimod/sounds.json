@@ -1,11 +1,50 @@
 {
-  "gecko.hurt": {
-    "catagory": "avali",
-    "subtitle": "avali.death",
+  "avali_death": {
+    "category": "idfk",
+    "subtitle": "avali_death.sub",
+
     "sounds": [
       {
-        "name": "avalimod:avali/avali.death",
-        "stream": false
+        "name": "avalimod:avali/avali_sound1",
+        "stream": true
+      }
+    ]
+  },
+  "avali_sound_damage": {
+    "category": "idfk",
+    "subtitle": "avali_sound_damage.sub",
+
+    "sounds": [
+      {
+        "name": "avalimod:avali/avali_sound2",
+        "stream": true
+      },
+      {
+        "name": "avalimod:avali/avali_sound3",
+        "stream": true
+      },
+      {
+        "name": "avalimod:avali/avali_sound7",
+        "stream": true
+      }
+    ]
+  },
+  "avali_general": {
+    "category": "idfk",
+    "subtitle": "avali_general.sub",
+
+    "sounds": [
+      {
+        "name": "avalimod:avali/avali_sound4",
+        "stream": true
+      },
+      {
+        "name": "avalimod:avali/avali_sound5",
+        "stream": true
+      },
+      {
+        "name": "avalimod:avali/avali_sound6",
+        "stream": true
       }
     ]
   }

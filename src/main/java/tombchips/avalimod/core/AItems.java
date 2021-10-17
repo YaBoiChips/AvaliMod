@@ -45,6 +45,10 @@ public class AItems {
             new Item.Properties().tab(TAB));
     public static final Item AMMONIA_ICE = createBlockItem(ABlocks.AMMONIA_ICE,
             new Item.Properties().tab(TAB));
+    public static final Item AVALON_STONE = createBlockItem(ABlocks.AVALON_STONE,
+            new Item.Properties().tab(TAB));
+    public static final Item FROZEN_AVALON_STONE = createBlockItem(ABlocks.FROZEN_AVALON_STONE,
+            new Item.Properties().tab(TAB));
     public static final Item FABRIC_BLOCK = createBlockItem(ABlocks.FABRIC_BLOCK,
             new Item.Properties().tab(TAB));
     public static final Item FABRIC_SLAB = createBlockItem(ABlocks.FABRIC_SLAB,

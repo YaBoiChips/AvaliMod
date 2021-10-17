@@ -26,6 +26,9 @@ public class ABlocks {
     public static final Block AMMONIA_ICE = registerBlock("ammonia_ice",new AmmoniaIceBlock(AbstractBlock.Properties.copy(Blocks.PACKED_ICE)));
     public static final Block CEILING_LIGHT = registerBlock("ceiling_light", new CeilingLightBlock(AbstractBlock.Properties.copy(Blocks.GLASS).lightLevel(litBlockEmission(15))));
 
+
+    public static final Block AVALON_STONE = registerBlock("avalon_stone",new Block(AbstractBlock.Properties.copy(Blocks.STONE)));
+    public static final Block FROZEN_AVALON_STONE = registerBlock("frozen_avalon_stone",new Block(AbstractBlock.Properties.copy(Blocks.COBBLESTONE)));
     public static final Block FABRIC_BLOCK = registerBlock("fabric_block",new Block(AbstractBlock.Properties.copy(Blocks.YELLOW_WOOL)));
     public static final Block FABRIC_SLAB = registerBlock("fabric_slab",new SlabBlock(AbstractBlock.Properties.copy(Blocks.YELLOW_WOOL)));
     public static final Block WALL_TAPESTRY = registerBlock("wall_tepestry",new WallTapestryBlock(AbstractBlock.Properties.copy(Blocks.YELLOW_WOOL).noOcclusion().noCollission()));
