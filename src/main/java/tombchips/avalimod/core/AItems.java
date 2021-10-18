@@ -7,6 +7,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.common.items.AvaliArmor;
+import tombchips.avalimod.common.material.CustomToolMaterial;
+import tombchips.avalimod.common.tools.AxeItem;
+import tombchips.avalimod.common.tools.SpearItem;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -74,6 +77,11 @@ public class AItems {
     public static final Item AVALON_CHESTPLATE = createItem(new ArmorItem(AvaliArmor.AVALI, EquipmentSlotType.CHEST, new Item.Properties().tab(TAB)), "avalon_chestplate");
     public static final Item AVALON_LEGGINGS = createItem(new ArmorItem(AvaliArmor.AVALI, EquipmentSlotType.LEGS, new Item.Properties().tab(TAB)), "avalon_leggings");
     public static final Item AVALON_BOOTS = createItem(new ArmorItem(AvaliArmor.AVALI, EquipmentSlotType.FEET, new Item.Properties().tab(TAB)), "avalon_boots");
+
+
+    //TOOLS/WEAPONS
+    public static final Item NANOBLADE_AXE = createItem(new AxeItem(CustomToolMaterial.NANOBLADE_TOOLS, 0, 0, new Item.Properties().tab(TAB)), "nanoblade_axe");
+    public static final Item NANOBLADE_SPEAR = createItem(new SpearItem(CustomToolMaterial.NANOBLADE_TOOLS, 0, 0, new Item.Properties().tab(TAB)), "nanoblade_spear");
 
 
     public static Item createItem(Item item, String id) {
