@@ -19,7 +19,7 @@ public class AvalonOceanBiome extends BiomeBase {
     static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = AConfiguredSurfaceBuilders.AVALON_OCEAN;
     static final Biome.RainType PRECIPATATION = Biome.RainType.SNOW;
     static final Biome.Category CATEGORY = Biome.Category.ICY;
-    static final float DEPTH = -0.5F;
+    static final float DEPTH = -0.01F;
     static final float SCALE = -0.01F;
     static final float TEMPERATURE = -50.0F;
     static final float DOWNFALL = 0.9F;

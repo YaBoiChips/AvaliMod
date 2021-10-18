@@ -3,7 +3,6 @@ package tombchips.avalimod;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -15,6 +14,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
@@ -29,7 +29,6 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.example.client.renderer.tile.FertilizerTileRenderer;
 import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.resource.ResourceListener;
 import tombchips.avalimod.client.entity.AvaliEntityRenderer;
@@ -58,6 +57,8 @@ public class AvaliMod {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
+
         GeckoLib.initialize();
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -75,8 +76,10 @@ public class AvaliMod {
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         AConfiguredSurfaceBuilders.register();
-        GlobalEntityTypeAttributes.put(AEntityTypes.AVALI, AvaliEntity.setCustiomAttributes().build());
+    }
 
+    public void entityAttributes(final EntityAttributeCreationEvent event){
+        event.put(AEntityTypes.AVALI, AvaliEntity.setCustiomAttributes().build());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

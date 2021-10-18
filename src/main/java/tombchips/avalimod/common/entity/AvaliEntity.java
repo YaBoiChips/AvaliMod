@@ -36,12 +36,13 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> SLEEPING = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.BOOLEAN);
 
-    int sleepTime = 0;
     private AnimationFactory factory = new AnimationFactory(this);
     public static float movementSpeed = 0.45f;
     public static final EntitySize AVALI_SIZE = EntitySize.scalable(0.6f, 1.63f);
     public static final EntitySize BABY_SIZE = EntitySize.scalable(0.3f, 0.815f);
     private static final DataParameter<Integer> COLOUR = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.INT);
+    private static final DataParameter<Integer> SLEEP_TIMER = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.INT);
+
     public AvaliEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -65,23 +66,17 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     protected void defineSynchedData() {
         this.entityData.define(SLEEPING, false);
         this.entityData.define(COLOUR, 0);
-
+        this.entityData.define(SLEEP_TIMER, this.random.nextInt(100));
         super.defineSynchedData();
     }
-
-
 
 
     @Override
     public void tick() {
         if (!this.level.isClientSide) {
-
-
-
-            sleepTime--;
-            if(sleepTime <= 0){
-                sleepTime = this.random.nextInt(100);
-                System.out.println(sleepTime);
+            setSleepTimer(getSleepTimer() - 1);
+            if(getSleepTimer() <= 0){
+                setSleepTimer(this.random.nextInt(100));
                 if (this.canSleep(this) && this.level.isNight()) {
                     this.setSleeping(true);
                     this.setNoAi(true);
@@ -100,6 +95,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     @Override
     public void readAdditionalSaveData(CompoundNBT compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
+        this.setSleepTimer(compoundNBT.getInt("SleepTimer"));
         this.setSleeping(compoundNBT.getBoolean("Avali_Sleeping"));
         this.setRawFlag(compoundNBT.getInt("Flag"));
 
@@ -109,9 +105,9 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     @Override
     public void addAdditionalSaveData(CompoundNBT compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
+        compoundNBT.putInt("SleepTimer", this.getSleepTimer());
         compoundNBT.putBoolean("Avali_Sleeping", this.isSleeping());
         compoundNBT.putInt("Flag", this.getRawFlag());
-
     }
 
     @Nullable
@@ -217,6 +213,14 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     //get the sets of setters and your nan
 
+    public void setSleepTimer(int time){
+        this.entityData.set(SLEEP_TIMER, time);
+    }
+
+    public int getSleepTimer(){
+        return this.entityData.get(SLEEP_TIMER);
+    }
+
     public void setSleeping(boolean sit) {
         this.entityData.set(SLEEPING, sit);
     }
@@ -279,11 +283,6 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
             return Maths.get(SkinColors.values(), index);
         }
     }
-
-    @Override
-    protected ResourceLocation getDefaultLootTable() {return new ResourceLocation(AvaliMod.MOD_ID,"avalimod/loot_tables/entity/avali.json");}
-
-
 }
 
 
