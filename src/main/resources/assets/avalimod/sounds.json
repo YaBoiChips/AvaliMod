@@ -47,5 +47,16 @@
         "stream": true
       }
     ]
+  },
+  "nanoblade_equip": {
+    "category": "idfk",
+    "subtitle": "nanoblade_equip.sub",
+
+    "sounds": [
+      {
+        "name": "avalimod:nanoblade_equip",
+        "stream": true
+      }
+    ]
   }
 }
