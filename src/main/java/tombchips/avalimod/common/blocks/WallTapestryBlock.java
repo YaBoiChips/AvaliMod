@@ -25,11 +25,12 @@ import java.util.Map;
 public class WallTapestryBlock extends Block {
 
     public static final DirectionProperty FACING = HorizontalBlock.FACING;
-    public static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
-            Direction.NORTH, Block.box(0.125, 0.125, 0.8125, 0.875, 2, 1),
-            Direction.SOUTH, Block.box(0.125, 0.125, 0.8125, 0.875, 2, 1),
-            Direction.WEST, Block.box(0.125, 0.125, 0.8125, 0.875, 2, 1),
-            Direction.EAST, Block.box(0.125, 0.125, 0.8125, 0.875, 2, 1)));
+    private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
+            Direction.NORTH, Block.box(0.0D, 0.0D, 14.0D, 16.0D, 12.5D, 16.0D),
+            Direction.SOUTH, Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.5D, 2.0D),
+            Direction.WEST, Block.box(14.0D, 0.0D, 0.0D, 16.0D, 12.5D, 16.0D),
+            Direction.EAST, Block.box(0.0D, 0.0D, 0.0D, 2.0D, 12.5D, 16.0D)));
+
 
     public WallTapestryBlock(Properties properties) {
         super(properties);

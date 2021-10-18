@@ -11,6 +11,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.world.AConfiguredStructures;
 import tombchips.avalimod.core.world.AConfiguredSurfaceBuilders;
 
@@ -47,5 +48,9 @@ public class AvalonDesert extends BiomeBase {
         GENERATION_SETTINGS.addStructureStart(AConfiguredStructures.VILLAGE_AVALI);
         GENERATION_SETTINGS.addCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.CAVE);
         GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.IRON_ORE.defaultBlockState(), 10)).range(46).squared().count(22));
+        GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ABlocks.FROZEN_AVALON_STONE.defaultBlockState(), 23)).range(46).squared().count(22));
+        GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ABlocks.AVALON_STONE.defaultBlockState(), 33)).range(46).squared().count(22));
+
+
     }
 }
