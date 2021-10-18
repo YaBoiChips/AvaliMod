@@ -13,9 +13,12 @@ import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.ASounds;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 @Mod.EventBusSubscriber(modid = AvaliMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class SoundEvents {
-    public static boolean held = false;
+    private static final HashMap<UUID, Boolean> held = new HashMap<>();
 
     @SubscribeEvent
     public static void isHoldingNanoTool(TickEvent.PlayerTickEvent event){
@@ -25,24 +28,13 @@ public class SoundEvents {
         World worldIn = world;
         Hand handIn = Hand.MAIN_HAND;
         ItemStack item = playerIn.getItemInHand(handIn);
-        if(item.getItem() == AItems.NANOBLADE_AXE && held){
-
-
+        if(item.getItem() == AItems.NANOBLADE_AXE && held.get(player.getUUID())){
             worldIn.playSound(player, new BlockPos(player.getPosition(0)), ASounds.NANOBLADE_EQUIP, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                held = false;
-
-
+                held.put(player.getUUID(), false);
         }
-        else {
-            if(item.getItem() != AItems.NANOBLADE_AXE)
+        else if(item.getItem() != AItems.NANOBLADE_AXE)
             {
-                held = true;
+                held.put(player.getUUID(), true);
             }
-
-        }
     }
-
-
-
-
 }
