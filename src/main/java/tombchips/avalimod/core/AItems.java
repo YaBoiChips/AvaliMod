@@ -8,8 +8,8 @@ import net.minecraft.util.registry.Registry;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.common.items.AvaliArmor;
 import tombchips.avalimod.common.material.CustomToolMaterial;
-import tombchips.avalimod.common.tools.AxeItem;
-import tombchips.avalimod.common.tools.SpearItem;
+import tombchips.avalimod.common.items.tools.AxeItem;
+import tombchips.avalimod.common.items.tools.SpearItem;
 
 import java.awt.*;
 import java.util.ArrayList;

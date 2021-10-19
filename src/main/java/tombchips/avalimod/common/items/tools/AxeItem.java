@@ -1,4 +1,4 @@
-package tombchips.avalimod.common.tools;
+package tombchips.avalimod.common.items.tools;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
@@ -32,6 +32,8 @@ public class AxeItem extends ToolItem {
         Material material = blockState.getMaterial();
         return DIGGABLE_MATERIALS.contains(material) ? this.speed : super.getDestroySpeed(itemStack, blockState);
     }
+
+
 
     public ActionResultType useOn(ItemUseContext itemUseContext) {
         World world = itemUseContext.getLevel();

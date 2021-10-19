@@ -58,6 +58,8 @@ public class AvaliMod {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
+        ATags.Items.init();
+
 
         GeckoLib.initialize();
 

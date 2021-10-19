@@ -1,4 +1,4 @@
-package tombchips.avalimod.common.tools;
+package tombchips.avalimod.common.items.tools;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

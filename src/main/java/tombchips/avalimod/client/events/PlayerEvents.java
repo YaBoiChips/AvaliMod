@@ -13,9 +13,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.AEffects;
 import tombchips.avalimod.core.AItems;
+import tombchips.avalimod.core.ATags;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -28,10 +30,10 @@ public class PlayerEvents {
 
 
 
-//    @SubscribeEvent
-//    public static void initialize(FMLServerStartedEvent e) {
-//
-//    }
+    @SubscribeEvent
+    public static void initialize(FMLServerStartedEvent e) {
+
+    }
 
 
 
