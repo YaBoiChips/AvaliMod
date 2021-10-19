@@ -31,8 +31,6 @@ import java.util.List;
 public class SpearItem extends TieredItem {
     private final float attackDamage;
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    public static boolean canLunge = true;
-    public static int coolDown = 70;
 
     public SpearItem(IItemTier iItemTier, int i, float v, Item.Properties properties) {
         super(iItemTier, properties);
@@ -45,29 +43,18 @@ public class SpearItem extends TieredItem {
 
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        if(canLunge){
-            System.out.println("used");
+        if(!player.getCooldowns().isOnCooldown(this)){
             Vector3d vector3d = player.getLookAngle();
             player.lerpMotion(vector3d.x, vector3d.y, vector3d.z);
-            canLunge = false;
+            player.getCooldowns().addCooldown(this, 70);
         }
         return super.use(world, player, hand);
     }
 
+
+
     @Override
     public void inventoryTick(ItemStack itemStack, World world, Entity entity, int i, boolean b) {
-        //System.out.println(coolDown);
-
-        if(!canLunge){
-            --coolDown;
-            if(coolDown <= 0){
-
-                canLunge = true;
-                coolDown = 70;
-
-            }
-        }
-
         super.inventoryTick(itemStack, world, entity, i, b);
     }
 

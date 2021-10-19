@@ -1,6 +1,7 @@
 package tombchips.avalimod.client.events;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
@@ -24,7 +25,6 @@ public class SoundEvents {
             World world = player.level;
             ItemStack item = player.getItemBySlot(EquipmentSlotType.MAINHAND);
             if (item.getItem() == AItems.NANOBLADE_AXE || item.getItem() == AItems.NANOBLADE_SPEAR) {
-                System.out.println("pog");
                 world.playSound(null, new BlockPos(player.getPosition(0)), ASounds.NANOBLADE_EQUIP, SoundCategory.PLAYERS, 1.0f, 1.0f);
             }
         }
@@ -32,11 +32,10 @@ public class SoundEvents {
 
     @SubscribeEvent
     public static void spearRecharge(TickEvent.PlayerTickEvent event){
-        LivingEntity player = event.player;
+        PlayerEntity player = event.player;
         World world = player.level;
         ItemStack item = player.getItemBySlot(EquipmentSlotType.MAINHAND);
-        if(!SpearItem.canLunge && SpearItem.coolDown <= 1 && item.getItem() == AItems.NANOBLADE_SPEAR){
-
+        if(player.getCooldowns().getCooldownPercent(item.getItem(), 1) == 0.1F && item.getItem() == AItems.NANOBLADE_SPEAR){
             world.playSound(null, new BlockPos(player.getPosition(0)), ASounds.NANOBLADE_EQUIP, SoundCategory.PLAYERS, 0.40f, 1.4f);
         }
     }
