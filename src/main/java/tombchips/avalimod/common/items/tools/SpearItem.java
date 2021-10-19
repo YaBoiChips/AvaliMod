@@ -5,6 +5,8 @@ import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -19,11 +21,18 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-public class SpearItem extends TieredItem  {
+import java.util.List;
+
+public class SpearItem extends TieredItem {
     private final float attackDamage;
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public static boolean canLunge = true;
+    public static int coolDown = 70;
 
     public SpearItem(IItemTier iItemTier, int i, float v, Item.Properties properties) {
         super(iItemTier, properties);
@@ -36,8 +45,30 @@ public class SpearItem extends TieredItem  {
 
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        System.out.println("used");
+        if(canLunge){
+            System.out.println("used");
+            Vector3d vector3d = player.getLookAngle();
+            player.lerpMotion(vector3d.x, vector3d.y, vector3d.z);
+            canLunge = false;
+        }
         return super.use(world, player, hand);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack itemStack, World world, Entity entity, int i, boolean b) {
+        //System.out.println(coolDown);
+
+        if(!canLunge){
+            --coolDown;
+            if(coolDown <= 0){
+
+                canLunge = true;
+                coolDown = 70;
+
+            }
+        }
+
+        super.inventoryTick(itemStack, world, entity, i, b);
     }
 
     public float getDamage() {
@@ -80,4 +111,9 @@ public class SpearItem extends TieredItem  {
         return p_111205_1_ == EquipmentSlotType.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(p_111205_1_);
     }
 
+    @Override
+    public void appendHoverText(ItemStack itemStack, World world, List<ITextComponent> iTextComponents, ITooltipFlag iTooltipFlag) {
+        iTextComponents.add(new StringTextComponent("\u00A73\u00A7nRight click to lunge forward"));
+        super.appendHoverText(itemStack, world, iTextComponents, iTooltipFlag);
+    }
 }

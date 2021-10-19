@@ -237,8 +237,8 @@
 			"translation": [0, 2, 0]
 		},
 		"gui": {
-			"rotation": [26.5, 138, -43.75],
-			"translation": [1.5, -3, 0],
+			"rotation": [52.75, 132.5, -68.25],
+			"translation": [1.75, -1.75, 0],
 			"scale": [0.6, 0.6, 0.6]
 		},
 		"head": {

@@ -81,7 +81,7 @@ public class AItems {
 
     //TOOLS/WEAPONS
     public static final Item NANOBLADE_AXE = createItem(new AxeItem(CustomToolMaterial.NANOBLADE_TOOLS, 0, 0, new Item.Properties().tab(TAB)), "nanoblade_axe");
-    public static final Item NANOBLADE_SPEAR = createItem(new SpearItem(CustomToolMaterial.NANOBLADE_TOOLS, 0, 0, new Item.Properties().tab(TAB)), "nanoblade_spear");
+    public static final Item NANOBLADE_SPEAR = createItem(new SpearItem(CustomToolMaterial.NANOBLADE_TOOLS, 3, -0.3f, new Item.Properties().tab(TAB)), "nanoblade_spear");
 
 
     public static Item createItem(Item item, String id) {
