@@ -12,7 +12,6 @@ import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tombchips.avalimod.AvaliMod;
-import tombchips.avalimod.common.items.tools.SpearItem;
 import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.ASounds;
 
@@ -36,7 +35,7 @@ public class SoundEvents {
         World world = player.level;
         ItemStack item = player.getItemBySlot(EquipmentSlotType.MAINHAND);
         if(player.getCooldowns().getCooldownPercent(item.getItem(), 1) == 0.1F && item.getItem() == AItems.NANOBLADE_SPEAR){
-            world.playSound(null, new BlockPos(player.getPosition(0)), ASounds.NANOBLADE_EQUIP, SoundCategory.PLAYERS, 0.40f, 1.4f);
+            world.playSound(null, new BlockPos(player.getPosition(0)), ASounds.NANOBLADE_EQUIP, SoundCategory.PLAYERS, 0.20f, 1.4f);
         }
     }
 }

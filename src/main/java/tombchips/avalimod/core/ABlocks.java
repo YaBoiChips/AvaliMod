@@ -25,6 +25,7 @@ public class ABlocks {
 
     public static final Block AMMONIA_ICE = registerBlock("ammonia_ice",new AmmoniaIceBlock(AbstractBlock.Properties.copy(Blocks.PACKED_ICE)));
     public static final Block CEILING_LIGHT = registerBlock("ceiling_light", new CeilingLightBlock(AbstractBlock.Properties.copy(Blocks.GLASS).lightLevel(litBlockEmission(15))));
+    public static final Block SMALL_CANISTER = registerBlock("small_canister",new SmallCanisterBlock(AbstractBlock.Properties.copy(Blocks.GLASS)));
 
 
     public static final Block AVALON_STONE = registerBlock("avalon_stone",new Block(AbstractBlock.Properties.copy(Blocks.STONE)));

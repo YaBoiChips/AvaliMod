@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.datafix.TypeReferences;
 import tombchips.avalimod.AvaliMod;
+import tombchips.avalimod.common.te.SmallCanisterTE;
 import tombchips.avalimod.common.te.WallTapestryTE;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class ATileEntityTypes {
     public static List<TileEntityType<?>> tileentity = new ArrayList<>();
 
     public static final TileEntityType<WallTapestryTE> WALL_TAPESTRY = register( "wall_tapestry", TileEntityType.Builder.of(WallTapestryTE::new, ABlocks.WALL_TAPESTRY) );
-
+    public static final TileEntityType<SmallCanisterTE> SMALL_CANISTER = register( "small_canister", TileEntityType.Builder.of(SmallCanisterTE::new, ABlocks.SMALL_CANISTER) );
 
 
 

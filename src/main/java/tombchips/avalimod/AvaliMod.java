@@ -32,6 +32,7 @@ import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.resource.ResourceListener;
 import tombchips.avalimod.client.entity.AvaliEntityRenderer;
+import tombchips.avalimod.client.renderer.tile.SmallCanisterRenderer;
 import tombchips.avalimod.client.renderer.tile.WallTapestryTileRenderer;
 import tombchips.avalimod.common.entity.AvaliEntity;
 import tombchips.avalimod.core.*;
@@ -87,6 +88,7 @@ public class AvaliMod {
     private void doClientStuff(final FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(AEntityTypes.AVALI, AvaliEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ATileEntityTypes.WALL_TAPESTRY, WallTapestryTileRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ATileEntityTypes.SMALL_CANISTER, SmallCanisterRenderer::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

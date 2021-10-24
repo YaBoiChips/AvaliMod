@@ -2,6 +2,8 @@
 
   "item.avalimod.ammonia_bucket": "Bucket Of Ammonia",
   "item.avalimod.avali_spawn_egg": "Avali Spawn Egg",
+  "item.avalimod.nanoblade_axe": "Nanoblade Axe",
+  "item.avalimod.nanoblade_spear": "Nanoblade Spear",
 
   "block.avalimod.ammonia_ice": "Frozen Ammonia",
   "block.avalimod.fabric_block": "Soft Fabric Block",
@@ -13,6 +15,7 @@
   "block.avalimod.nanofiber_pole": "Nanofiber Pole",
   "block.avalimod.avalon_stone": "Avalon Stone",
   "block.avalimod.frozen_avalon_stone": "Frozen Avalon Stone",
+  "block.avalimod.ceiling_light": "Ceiling Light",
 
 
   "entity.avalimod.avali": "Avali",
