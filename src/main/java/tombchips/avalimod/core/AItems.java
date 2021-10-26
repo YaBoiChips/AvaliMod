@@ -6,7 +6,7 @@ import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import tombchips.avalimod.AvaliMod;
-import tombchips.avalimod.common.items.AvaliArmor;
+import tombchips.avalimod.common.material.AvaliArmor;
 import tombchips.avalimod.common.material.CustomToolMaterial;
 import tombchips.avalimod.common.items.tools.AxeItem;
 import tombchips.avalimod.common.items.tools.SpearItem;

@@ -1,5 +1,6 @@
 package tombchips.avalimod.common.dimension.biomes;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.audio.BackgroundMusicTracks;
 import net.minecraft.entity.EntityClassification;
@@ -11,16 +12,18 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.world.AConfiguredSurfaceBuilders;
+import tombchips.avalimod.core.world.AFeatures;
 
 import java.awt.*;
 
-public class AvalonOceanBiome extends BiomeBase {
-    static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = AConfiguredSurfaceBuilders.AVALON_OCEAN;
+public class AvalonFrozenMountain extends BiomeBase {
+    static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = AConfiguredSurfaceBuilders.AVALON_FROZEN;
     static final Biome.RainType PRECIPATATION = Biome.RainType.SNOW;
     static final Biome.Category CATEGORY = Biome.Category.ICY;
-    static final float DEPTH = -0.80F;
-    static final float SCALE = -0.1F;
+    static final float DEPTH = 0.125F;
+    static final float SCALE = 0.05F;
     static final float TEMPERATURE = -50.0F;
     static final float DOWNFALL = 0.9F;
     static final int WATER_COLOR = 31064;
@@ -30,7 +33,7 @@ public class AvalonOceanBiome extends BiomeBase {
     static final BiomeGenerationSettings.Builder GENERATION_SETTINGS = (new BiomeGenerationSettings.Builder()).surfaceBuilder(SURFACE_BUILDER);
 
 
-    public AvalonOceanBiome() {
+    public AvalonFrozenMountain() {
         super(WEATHER, CATEGORY, DEPTH, SCALE, (new BiomeAmbience.Builder()).waterColor(WATER_COLOR).waterFogColor(WATER_FOG_COLOR)
                 .waterColor(WATER_COLOR)
                 .waterFogColor(WATER_FOG_COLOR)
@@ -45,6 +48,8 @@ public class AvalonOceanBiome extends BiomeBase {
 
     static {
         GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.IRON_ORE.defaultBlockState(), 22)).range(46).squared().count(22));
+        GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, AFeatures.AMMONIA_ICE_SPIKE.configured(IFeatureConfig.NONE).decorated(Features.Placements.HEIGHTMAP_WORLD_SURFACE).count(3));
+        GENERATION_SETTINGS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Feature.ICE_PATCH.configured(new SphereReplaceConfig(ABlocks.AMMONIA_ICE.defaultBlockState(), FeatureSpread.of(2, 1), 1, ImmutableList.of(Blocks.DIRT.defaultBlockState(), Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.PODZOL.defaultBlockState(), Blocks.COARSE_DIRT.defaultBlockState(),Blocks.SNOW_BLOCK.defaultBlockState(), Blocks.ICE.defaultBlockState()))).decorated(Features.Placements.HEIGHTMAP_WORLD_SURFACE).count(1));
         GENERATION_SETTINGS.addCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.CAVE);
         SPAWN_SETTINGS.addSpawn(EntityClassification.AMBIENT, new MobSpawnInfo.Spawners(EntityType.SNOW_GOLEM, 102, 4, 4));
     }

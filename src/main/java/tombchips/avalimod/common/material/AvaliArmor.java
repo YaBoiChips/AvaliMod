@@ -1,4 +1,4 @@
-package tombchips.avalimod.common.items;
+package tombchips.avalimod.common.material;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;

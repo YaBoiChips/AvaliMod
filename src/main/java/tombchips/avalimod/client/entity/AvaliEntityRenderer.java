@@ -30,6 +30,7 @@ public class AvaliEntityRenderer<T extends AvaliEntity> extends GeoEntityRendere
     public AvaliEntityRenderer(EntityRendererManager manager) {
         super(manager, new AvaliEntityModel());
         this.shadowRadius = 0.4F;
+
     }
 
     @Override

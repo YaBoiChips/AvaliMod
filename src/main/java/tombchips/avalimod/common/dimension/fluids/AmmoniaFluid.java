@@ -79,17 +79,6 @@ public class AmmoniaFluid extends FlowingFluid {
         return super.isEntityInside(state, world, pos, entity, yToTest, tag, testingHead);
     }
 
-    @Override
-    public void tick(World world, BlockPos pos, FluidState state) {
-        if (world.dimension() != RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(AvaliMod.MOD_ID, "avalon"))){
-            world.setBlock(pos, Blocks.AIR.defaultBlockState(), 1);
-            this.fizz(world, pos);
-        }
-    }
-
-    private void fizz(IWorld p_180688_1_, BlockPos p_180688_2_) {
-        p_180688_1_.levelEvent(1501, p_180688_2_, 0);
-    }
 
     @Override
     public int getTickDelay(IWorldReader p_205569_1_) {

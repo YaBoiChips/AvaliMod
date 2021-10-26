@@ -4,6 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -15,13 +18,13 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
+import tombchips.avalimod.common.te.SmallCanisterTE;
 import tombchips.avalimod.core.ATileEntityTypes;
 
 import java.util.stream.Stream;
 
 public class SmallCanisterBlock  extends Block {
-
-    public static boolean isUsed;
 
     protected static final VoxelShape SHAPE = Stream.of(
             Block.box(6, 0, 6, 10, 1, 10),
@@ -39,10 +42,36 @@ public class SmallCanisterBlock  extends Block {
     }
 
     @Override
-    public ActionResultType use(BlockState blockState, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-        isUsed = true;
+    public ActionResultType use(BlockState blockState, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult blockRayTraceResult) {
+        if (!world.isClientSide) {
+            TileEntity tile = world.getBlockEntity(pos);
+            ItemStack stack = player.getItemInHand(hand);
+            if (tile instanceof SmallCanisterTE) {
+                if (stack.hasTag()) {
+                    if (stack.getTag().contains("entity")) {
+                        if (!((SmallCanisterTE) tile).getItem(0).hasTag()) {
+                            ((SmallCanisterTE) tile).setItem(0, stack.copy());
+                            stack.shrink(1);
+                        }
+                    }
+                } else {
+                    NetworkHooks.openGui((ServerPlayerEntity) player, (SmallCanisterTE) tile, pos);
+                }
+                return ActionResultType.SUCCESS;
+            }
+        }
+        return ActionResultType.FAIL;
+    }
 
-        return super.use(blockState, world, blockPos, player, hand, blockRayTraceResult);
+    @Override
+    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            TileEntity te = worldIn.getBlockEntity(pos);
+            if (te instanceof SmallCanisterTE) {
+                InventoryHelper.dropContents(worldIn, pos, ((SmallCanisterTE) te).getItems());
+            }
+            super.onRemove(state, worldIn, pos, newState, isMoving);
+        }
     }
 
     @Override
@@ -59,5 +88,10 @@ public class SmallCanisterBlock  extends Block {
     public BlockRenderType getRenderShape(BlockState state)
     {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
     }
 }

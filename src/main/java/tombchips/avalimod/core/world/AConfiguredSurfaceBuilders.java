@@ -8,7 +8,7 @@ import tombchips.avalimod.core.ABlocks;
 
 public class AConfiguredSurfaceBuilders {
 
-    public static final ConfiguredSurfaceBuilder<SurfaceBuilderConfig> AVALON_DESERT = ASurfaceBuilders.AVALON_DESERT.configured(new SurfaceBuilderConfig(Blocks.SAND.defaultBlockState(), ABlocks.AMMONIA_ICE.defaultBlockState(), Blocks.DIRT.defaultBlockState()));
+    public static final ConfiguredSurfaceBuilder<SurfaceBuilderConfig> AVALON_DESERT = ASurfaceBuilders.AVALON_DESERT.configured(new SurfaceBuilderConfig(ABlocks.FROZEN_AVALON_STONE.defaultBlockState(), ABlocks.FROZEN_AVALON_STONE.defaultBlockState(), ABlocks.FROZEN_AVALON_STONE.defaultBlockState()));
     public static final ConfiguredSurfaceBuilder<SurfaceBuilderConfig> AVALON_FROZEN = ASurfaceBuilders.AVALON_FROZEN.configured(new SurfaceBuilderConfig(Blocks.SNOW_BLOCK.defaultBlockState(), ABlocks.AMMONIA_ICE.defaultBlockState(), ABlocks.AMMONIA_ICE.defaultBlockState()));
     public static final ConfiguredSurfaceBuilder<SurfaceBuilderConfig> AVALON_OCEAN = ASurfaceBuilders.AVALON_OCEAN.configured(new SurfaceBuilderConfig(Blocks.SNOW_BLOCK.defaultBlockState(), ABlocks.AMMONIA_ICE.defaultBlockState(), ABlocks.AMMONIA_ICE.defaultBlockState()));
 

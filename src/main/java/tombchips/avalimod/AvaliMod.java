@@ -2,8 +2,10 @@ package tombchips.avalimod;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntityType;
@@ -34,6 +36,7 @@ import software.bernie.geckolib3.resource.ResourceListener;
 import tombchips.avalimod.client.entity.AvaliEntityRenderer;
 import tombchips.avalimod.client.renderer.tile.SmallCanisterRenderer;
 import tombchips.avalimod.client.renderer.tile.WallTapestryTileRenderer;
+import tombchips.avalimod.common.contianers.screens.SmallCanisterScreen;
 import tombchips.avalimod.common.entity.AvaliEntity;
 import tombchips.avalimod.core.*;
 import tombchips.avalimod.core.world.ABiomes;
@@ -89,6 +92,8 @@ public class AvaliMod {
         RenderingRegistry.registerEntityRenderingHandler(AEntityTypes.AVALI, AvaliEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ATileEntityTypes.WALL_TAPESTRY, WallTapestryTileRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ATileEntityTypes.SMALL_CANISTER, SmallCanisterRenderer::new);
+        ScreenManager.register(AContainers.SMALL_CAN, SmallCanisterScreen::new);
+
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -196,6 +201,17 @@ public class AvaliMod {
             ASurfaceBuilders.surfaceBuilders.clear();
             ASurfaceBuilders.surfaceBuilders = null;
             LOGGER.info("Surface builders Registered!");
+        }
+
+
+        @SubscribeEvent
+        public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event) {
+            LOGGER.debug("Containers builders...");
+            AContainers.init();
+            AContainers.containers.forEach(containerType -> event.getRegistry().register(containerType));
+            AContainers.containers.clear();
+            AContainers.containers = null;
+            LOGGER.info("Containers Registered!");
         }
 
         @SubscribeEvent
