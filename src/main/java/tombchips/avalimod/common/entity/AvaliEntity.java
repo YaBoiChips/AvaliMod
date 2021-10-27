@@ -1,10 +1,14 @@
 package tombchips.avalimod.common.entity;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -33,22 +37,24 @@ import tombchips.avalimod.util.Maths;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.UUID;
+import java.util.function.Predicate;
 
 public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> SLEEPING = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.BOOLEAN);
 
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     public static float movementSpeed = 0.45f;
     public static final EntitySize AVALI_SIZE = EntitySize.scalable(0.6f, 1.63f);
     public static final EntitySize BABY_SIZE = EntitySize.scalable(0.3f, 0.815f);
     private static final DataParameter<Integer> COLOUR = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.INT);
     private static final DataParameter<Integer> SLEEP_TIMER = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.INT);
+    private static final DataParameter<Boolean> GUARD = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.BOOLEAN);
 
     public AvaliEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
         super(type, worldIn);
     }
-
 
 
     @Override
@@ -61,7 +67,17 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT p_213386_5_) {
         setSkinColor(getRandomAvaliColor(random));
+        setGuard(random.nextBoolean());
+        if (this.isGuard()){
+            this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(AItems.NANOBLADE_SPEAR));
+        }
         return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, p_213386_5_);
+    }
+
+    @Nullable
+    @Override
+    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+        return null;
     }
 
     @Override
@@ -69,6 +85,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         this.entityData.define(SLEEPING, false);
         this.entityData.define(COLOUR, 0);
         this.entityData.define(SLEEP_TIMER, this.random.nextInt(100));
+        this.entityData.define(GUARD, false);
         super.defineSynchedData();
     }
 
@@ -77,7 +94,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     public void tick() {
         if (!this.level.isClientSide) {
             setSleepTimer(getSleepTimer() - 1);
-            if(getSleepTimer() <= 0){
+            if (getSleepTimer() <= 0) {
                 setSleepTimer(this.random.nextInt(100));
                 if (this.canSleep(this) && this.level.isNight()) {
                     this.setSleeping(true);
@@ -88,10 +105,8 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
                     this.setNoAi(false);
                 }
             }
-
         }
         super.tick();
-
     }
 
     @Override
@@ -100,8 +115,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         this.setSleepTimer(compoundNBT.getInt("SleepTimer"));
         this.setSleeping(compoundNBT.getBoolean("Avali_Sleeping"));
         this.setRawFlag(compoundNBT.getInt("Flag"));
-
-
+        this.setGuard(compoundNBT.getBoolean("Guard"));
     }
 
     @Override
@@ -110,13 +124,9 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         compoundNBT.putInt("SleepTimer", this.getSleepTimer());
         compoundNBT.putBoolean("Avali_Sleeping", this.isSleeping());
         compoundNBT.putInt("Flag", this.getRawFlag());
+        compoundNBT.putBoolean("Guard", this.isGuard());
     }
 
-    @Nullable
-    @Override
-    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
-        return null;
-    }
 
 
     public static AttributeModifierMap.MutableAttribute setCustiomAttributes() {
@@ -135,8 +145,10 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, movementSpeed));
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, false));
-
+        if (this.isGuard()) {
+            this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
+            this.targetSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, true));
+        }
     }
 
     @Override
@@ -159,18 +171,18 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     @Override
     protected SoundEvent getDeathSound() {
-
         return ASounds.AVALI_DEATH;
     }
+
     @Override
     protected SoundEvent getAmbientSound() {
         return ASounds.AVALI_GENERAL;
     }
+
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
         return ASounds.AVALI_SOUND_DAMAGE;
     }
-
 
     @Override
     public int getAmbientSoundInterval() {
@@ -191,14 +203,10 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
         } else {
             return PlayState.STOP;
         }
-
-
     }
 
     public boolean canSleep(AvaliEntity entity) {
         return entity.getBlockStateOn() == ABlocks.FABRIC_BLOCK.defaultBlockState() || entity.getBlockStateOn() == ABlocks.FABRIC_SLAB.defaultBlockState();
-
-
     }
 
 
@@ -215,11 +223,19 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
     //get the sets of setters and your nan
 
-    public void setSleepTimer(int time){
+    public void setGuard(boolean bool){
+        this.entityData.set(GUARD, bool);
+    }
+
+    public boolean isGuard(){
+        return this.entityData.get(GUARD);
+    }
+
+    public void setSleepTimer(int time) {
         this.entityData.set(SLEEP_TIMER, time);
     }
 
-    public int getSleepTimer(){
+    public int getSleepTimer() {
         return this.entityData.get(SLEEP_TIMER);
     }
 
@@ -271,6 +287,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
             return SkinColors.BLUE;
         }
     }
+
 
 
     public enum SkinColors {
