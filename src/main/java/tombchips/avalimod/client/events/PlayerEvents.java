@@ -72,7 +72,7 @@ public class PlayerEvents {
     public static void doDamage(TickEvent.PlayerTickEvent event){
         PlayerEntity player = event.player;
         if (fireUuidMap.get(player.getUUID()) != null) {
-            if (!fireUuidMap.get(player.getUUID())) {
+            if (fireUuidMap.get(player.getUUID())) {
                 player.addEffect(new EffectInstance(AEffects.FREEZING, 20, suitPeices(player), false, false));
             }
         }

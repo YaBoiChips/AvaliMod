@@ -73,6 +73,8 @@ public class AItems {
             new Item.Properties().tab(TAB));
     public static final Item SMALL_CANISTER = createBlockItem(ABlocks.SMALL_CANISTER,
             new Item.Properties().tab(TAB));
+    public static final Item SNOWDROP = createBlockItem(ABlocks.SNOWDROP,
+            new Item.Properties().tab(TAB));
 
     //ARMOR ITEMS
     public static final Item AVALON_HELMET = createItem(new ArmorItem(AvaliArmor.AVALI, EquipmentSlotType.HEAD, new Item.Properties().tab(TAB)), "avalon_helmet");

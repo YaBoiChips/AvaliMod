@@ -27,7 +27,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-import tombchips.avalimod.common.blocks.SmallCanisterBlock;
+import tombchips.avalimod.common.blocks.containers.SmallCanisterBlock;
 import tombchips.avalimod.common.contianers.SmallCanisterContainer;
 import tombchips.avalimod.core.ATileEntityTypes;
 
@@ -58,14 +58,13 @@ public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatab
         AnimationController controller = event.getController();
         controller.transitionLengthTicks = 0;
 
-        if(isUsed){
+        if(numPlayersUsing >= 1){
             controller.setAnimation(new AnimationBuilder().addAnimation("animation.smallcanister.open", false));
-            return PlayState.CONTINUE;
         }
         else {
             controller.setAnimation(new AnimationBuilder().addAnimation("animation.smallcanister.close", false));
-            return PlayState.CONTINUE;
         }
+        return PlayState.CONTINUE;
 
     }
 
@@ -124,7 +123,6 @@ public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatab
 
     @Override
     public void startOpen(PlayerEntity player) {
-        isUsed = true;
         if (!player.isSpectator()) {
             if (this.numPlayersUsing < 0) {
                 this.numPlayersUsing = 0;
@@ -136,7 +134,6 @@ public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatab
 
     @Override
     public void stopOpen(PlayerEntity player) {
-        isUsed = false;
         if (!player.isSpectator()) {
             --this.numPlayersUsing;
             this.onOpenOrClose();

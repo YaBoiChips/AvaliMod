@@ -2,9 +2,7 @@ package tombchips.avalimod.core.world;
 
 import net.minecraft.world.biome.Biome;
 import tombchips.avalimod.AvaliMod;
-import tombchips.avalimod.common.dimension.biomes.AvalonDesert;
-import tombchips.avalimod.common.dimension.biomes.AvalonFrozenBiome;
-import tombchips.avalimod.common.dimension.biomes.AvalonOceanBiome;
+import tombchips.avalimod.common.dimension.biomes.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +14,9 @@ public class ABiomes {
     public static final Biome AVALON_DESERT = registerBiome("avalon_desert", new AvalonDesert().getBiome(), 1);
     public static final Biome AVALON_FROZEN = registerBiome("avalon_frozen", new AvalonFrozenBiome().getBiome(), 2);
     public static final Biome AVALON_OCEAN = registerBiome("avalon_ocean", new AvalonOceanBiome().getBiome(), 3);
+    public static final Biome AVALON_DESERT_MOUNTAIN = registerBiome("avalon_desert_mountain", new AvalonDesertMountain().getBiome(), 1);
+    public static final Biome AVALON_FROZEN_MOUNTAIN = registerBiome("avalon_frozen_mountain", new AvalonFrozenMountain().getBiome(), 1);
+
 
 
 

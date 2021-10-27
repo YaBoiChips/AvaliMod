@@ -21,7 +21,7 @@ public class AvalonDesert extends BiomeBase {
     static final ConfiguredSurfaceBuilder<?> SURFACE_BUILDER = AConfiguredSurfaceBuilders.AVALON_DESERT;
     static final Biome.RainType PRECIPATATION = Biome.RainType.SNOW;
     static final Biome.Category CATEGORY = Biome.Category.DESERT;
-    static final float DEPTH = 0.125F;
+    static final float DEPTH = 0.09F;
     static final float SCALE = 0.05F;
     static final float TEMPERATURE = -50.0F;
     static final float DOWNFALL = 0.9F;

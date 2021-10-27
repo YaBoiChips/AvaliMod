@@ -1,4 +1,4 @@
-package tombchips.avalimod.common.blocks;
+package tombchips.avalimod.common.blocks.containers;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -6,10 +6,14 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Stat;
+import net.minecraft.stats.Stats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -43,24 +47,21 @@ public class SmallCanisterBlock  extends Block {
 
     @Override
     public ActionResultType use(BlockState blockState, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-        if (!world.isClientSide) {
+        if (world.isClientSide) {
+            return ActionResultType.SUCCESS;
+        }
+        else {
             TileEntity tile = world.getBlockEntity(pos);
-            ItemStack stack = player.getItemInHand(hand);
             if (tile instanceof SmallCanisterTE) {
-                if (stack.hasTag()) {
-                    if (stack.getTag().contains("entity")) {
-                        if (!((SmallCanisterTE) tile).getItem(0).hasTag()) {
-                            ((SmallCanisterTE) tile).setItem(0, stack.copy());
-                            stack.shrink(1);
-                        }
-                    }
-                } else {
-                    NetworkHooks.openGui((ServerPlayerEntity) player, (SmallCanisterTE) tile, pos);
-                }
-                return ActionResultType.SUCCESS;
+                NetworkHooks.openGui((ServerPlayerEntity) player, (SmallCanisterTE) tile, pos);
+                player.awardStat(this.getOpenChestStat());
             }
         }
-        return ActionResultType.FAIL;
+        return ActionResultType.CONSUME;
+    }
+
+    protected Stat<ResourceLocation> getOpenChestStat() {
+        return Stats.CUSTOM.get(Stats.OPEN_CHEST);
     }
 
     @Override

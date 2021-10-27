@@ -2,6 +2,7 @@ package tombchips.avalimod.core;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -10,6 +11,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.common.blocks.*;
+import tombchips.avalimod.common.blocks.containers.SmallCanisterBlock;
+import tombchips.avalimod.common.blocks.plants.SnowPlantBlock;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -38,6 +41,8 @@ public class ABlocks {
     public static final Block FABRIC_TRIM = registerBlock("fabric_trim", new RotateableBlock(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL)));
     public static final Block TECH_BLOCK = registerBlock("tech_block", new RotateableBlock(AbstractBlock.Properties.copy(Blocks.IRON_BLOCK)));
     public static final Block NANOFIBER_POLE = registerBlock("nanofiber_pole", new RotateableBlock(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL)));
+
+    public static final Block SNOWDROP = registerBlock("snow_drop", new SnowPlantBlock(AEffects.FREEZING, 7, AbstractBlock.Properties.copy(Blocks.POPPY)));
 
 
 
