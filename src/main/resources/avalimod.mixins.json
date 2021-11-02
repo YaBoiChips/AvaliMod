@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "avalimod.refmap.json",
   "mixins": [
+    "BiomeAccess"
   ],
   "client": [
   ],

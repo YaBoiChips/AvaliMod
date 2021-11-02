@@ -1,18 +1,12 @@
 package tombchips.avalimod.core;
 
-import net.minecraft.block.Block;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.FlowingFluid;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.common.dimension.fluids.AmmoniaFluid;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

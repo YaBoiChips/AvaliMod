@@ -1,14 +1,15 @@
 package tombchips.avalimod.common.effects;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
+
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import tombchips.avalimod.core.AEffects;
 
-public class FreezingEffect extends Effect {
-    public FreezingEffect(EffectType p_i50391_1_, int p_i50391_2_) {
+public class FreezingEffect extends MobEffect {
+    public FreezingEffect(MobEffectCategory p_i50391_1_, int p_i50391_2_) {
         super(p_i50391_1_, p_i50391_2_);
     }
 
@@ -29,7 +30,7 @@ public class FreezingEffect extends Effect {
                 return true;
             }
         } else {
-            return this == Effects.HUNGER;
+            return this == MobEffects.HUNGER;
         }
     }
 }

@@ -1,17 +1,18 @@
 package tombchips.avalimod.common.material;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.AItems;
 
 import java.util.function.Supplier;
 
-public enum AvaliArmor implements IArmorMaterial {
+public enum AvaliArmor implements ArmorMaterial {
     AVALI(AvaliMod.MOD_ID + ":avali", 37, new int[]{3, 6, 8, 3}, 420, SoundEvents.ARMOR_EQUIP_NETHERITE, 0.1F, 3.0F, () -> {
         return Ingredient.of(AItems.AVALI_LOGO);
     });
@@ -24,7 +25,7 @@ public enum AvaliArmor implements IArmorMaterial {
     private final SoundEvent soundEvent;
     private final float toughness;
     private final float knockbackResistance;
-    private final LazyValue<Ingredient> repairMaterial;
+    private final LazyLoadedValue<Ingredient> repairMaterial;
 
     AvaliArmor(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountArrayIn, int enchantabilityIn, SoundEvent soundEventIn, float resistance, float toughnessIn, Supplier<Ingredient> repairMaterialIn) {
         this.name = nameIn;
@@ -34,16 +35,16 @@ public enum AvaliArmor implements IArmorMaterial {
         this.soundEvent = soundEventIn;
         this.toughness = toughnessIn;
         this.knockbackResistance = resistance;
-        this.repairMaterial = new LazyValue<>(repairMaterialIn);
+        this.repairMaterial = new LazyLoadedValue<>(repairMaterialIn);
     }
 
     @Override
-    public int getDurabilityForSlot(EquipmentSlotType slot) {
+    public int getDurabilityForSlot(EquipmentSlot slot) {
         return HEALTH_PER_SLOT[slot.getIndex()] * this.maxDamageFactor;
     }
 
     @Override
-    public int getDefenseForSlot(EquipmentSlotType slot) {
+    public int getDefenseForSlot(EquipmentSlot slot) {
         return damageReductionAmountArray[slot.getIndex()];
     }
 

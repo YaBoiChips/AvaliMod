@@ -1,8 +1,8 @@
 package tombchips.avalimod.client.model;
 
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
@@ -12,11 +12,9 @@ import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.client.entity.AvaliEntityRenderer;
 import tombchips.avalimod.common.entity.AvaliEntity;
 
+
 public class AvaliEntityModel<T extends IAnimatable> extends AnimatedGeoModel<T> {
-
-
-
-
+    
     @Override
     public ResourceLocation getModelLocation(T object) {
         return new ResourceLocation(AvaliMod.MOD_ID, "geo/avali.geo.json");
@@ -27,7 +25,6 @@ public class AvaliEntityModel<T extends IAnimatable> extends AnimatedGeoModel<T>
         AvaliEntity avali = (AvaliEntity) object;
         return AvaliEntityRenderer.AVALI_TEXTURE.get(avali.getSkinColor());
     }
-
 
     @Override
     public ResourceLocation getAnimationFileLocation(T animatable) {

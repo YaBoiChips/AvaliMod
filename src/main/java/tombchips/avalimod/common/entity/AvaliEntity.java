@@ -1,26 +1,26 @@
 package tombchips.avalimod.common.entity;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
+
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraftforge.event.entity.EntityEvent;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -33,50 +33,47 @@ import tombchips.avalimod.core.AEntityTypes;
 import tombchips.avalimod.core.AItems;
 import tombchips.avalimod.core.ASounds;
 import tombchips.avalimod.util.Maths;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
-import java.util.UUID;
-import java.util.function.Predicate;
 
-public class AvaliEntity extends AgeableEntity implements IAnimatable {
+public class AvaliEntity extends AgeableMob implements IAnimatable {
 
-    private static final DataParameter<Boolean> SLEEPING = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(AvaliEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimationFactory factory = new AnimationFactory(this);
     public static float movementSpeed = 0.45f;
-    public static final EntitySize AVALI_SIZE = EntitySize.scalable(0.6f, 1.63f);
-    public static final EntitySize BABY_SIZE = EntitySize.scalable(0.3f, 0.815f);
-    private static final DataParameter<Integer> COLOUR = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.INT);
-    private static final DataParameter<Integer> SLEEP_TIMER = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.INT);
-    private static final DataParameter<Boolean> GUARD = EntityDataManager.defineId(AvaliEntity.class, DataSerializers.BOOLEAN);
+    public static final EntityDimensions AVALI_SIZE = EntityDimensions.scalable(0.6f, 1.63f);
+    public static final EntityDimensions BABY_SIZE = EntityDimensions.scalable(0.3f, 0.815f);
+    private static final EntityDataAccessor<Integer> COLOUR = SynchedEntityData.defineId(AvaliEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SLEEP_TIMER = SynchedEntityData.defineId(AvaliEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> GUARD = SynchedEntityData.defineId(AvaliEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public AvaliEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
+    public AvaliEntity(EntityType<? extends AgeableMob> type, Level worldIn) {
         super(type, worldIn);
     }
 
 
     @Override
-    public EntitySize getDimensions(Pose p_213305_1_) {
+    public EntityDimensions getDimensions(Pose p_213305_1_) {
         if (this.isBaby()) {
             return BABY_SIZE;
         } else return AVALI_SIZE;
     }
 
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT p_213386_5_) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34297_, DifficultyInstance p_34298_, MobSpawnType p_34299_, @Nullable SpawnGroupData p_34300_, @Nullable CompoundTag p_34301_) {
         setSkinColor(getRandomAvaliColor(random));
         setGuard(random.nextBoolean());
         if (this.isGuard()){
-            this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(AItems.NANOBLADE_SPEAR));
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(AItems.NANOBLADE_SPEAR));
         }
-        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, p_213386_5_);
+        return super.finalizeSpawn(p_34297_, p_34298_, p_34299_, p_34300_, p_34301_);
     }
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+    public AgeableMob getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
         return null;
     }
 
@@ -110,7 +107,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         this.setSleepTimer(compoundNBT.getInt("SleepTimer"));
         this.setSleeping(compoundNBT.getBoolean("Avali_Sleeping"));
@@ -119,7 +116,7 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.putInt("SleepTimer", this.getSleepTimer());
         compoundNBT.putBoolean("Avali_Sleeping", this.isSleeping());
@@ -129,8 +126,8 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
 
 
 
-    public static AttributeModifierMap.MutableAttribute setCustiomAttributes() {
-        return MobEntity.createLivingAttributes().add(Attributes.MAX_HEALTH, 25.0d)
+    public static AttributeSupplier.Builder setCustiomAttributes() {
+        return Mob.createLivingAttributes().add(Attributes.MAX_HEALTH, 25.0d)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.ATTACK_SPEED, 0.4D)
                 .add(Attributes.MOVEMENT_SPEED, movementSpeed)
@@ -141,10 +138,10 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, movementSpeed));
-        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(5, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, movementSpeed));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0f));
         if (this.isGuard()) {
             this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
             this.targetSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, true));
@@ -152,15 +149,15 @@ public class AvaliEntity extends AgeableEntity implements IAnimatable {
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity player, Hand hand) {
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (player.getItemInHand(hand).getItem() == AItems.AVALI_SPAWN_EGG) {
             AvaliEntity entity = new AvaliEntity(AEntityTypes.AVALI, this.level);
             entity.setAge(-1000);
             entity.setPos(this.getX(), this.getY(), this.getZ());
             entity.setSkinColor(getRandomAvaliColor(random));
             this.level.addFreshEntity(entity);
-            return ActionResultType.SUCCESS;
-        } else return ActionResultType.FAIL;
+            return InteractionResult.SUCCESS;
+        } else return InteractionResult.FAIL;
     }
 
     @Override

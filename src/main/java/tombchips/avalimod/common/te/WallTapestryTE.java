@@ -1,6 +1,8 @@
 package tombchips.avalimod.common.te;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -10,24 +12,22 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import tombchips.avalimod.core.ATileEntityTypes;
 
-public class WallTapestryTE extends TileEntity implements IAnimatable {
+public class WallTapestryTE extends BlockEntity implements IAnimatable {
 
 
-    public WallTapestryTE() {
-        super(ATileEntityTypes.WALL_TAPESTRY);
+    public WallTapestryTE(BlockPos pos, BlockState state) {
+        super(ATileEntityTypes.WALL_TAPESTRY, pos, state);
     }
 
     private final AnimationFactory manager = new AnimationFactory(this);
 
-    private <E extends TileEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         AnimationController controller = event.getController();
         controller.transitionLengthTicks = 0;
 
         controller.setAnimation(new AnimationBuilder().addAnimation("animation.tapestry", true));
         return PlayState.CONTINUE;
     }
-
-
 
     @Override
     public void registerControllers(AnimationData data) {

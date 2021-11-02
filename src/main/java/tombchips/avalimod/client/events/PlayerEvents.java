@@ -1,23 +1,19 @@
 package tombchips.avalimod.client.events;
 
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
+import net.minecraftforge.fmlserverevents.FMLServerStartedEvent;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.AEffects;
 import tombchips.avalimod.core.AItems;
-import tombchips.avalimod.core.ATags;
 import tombchips.avalimod.core.world.ADimensionTypes;
 
 import java.util.HashMap;
@@ -43,8 +39,8 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void checkIsWarm(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        World world = player.level;
+        Player player = event.player;
+        Level world = player.level;
         if (!fireUuidMap.containsKey(player.getUUID())) {
             fireUuidMap.put(player.getUUID(), false);
         }
@@ -70,26 +66,26 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void doDamage(TickEvent.PlayerTickEvent event){
-        PlayerEntity player = event.player;
+        Player player = event.player;
         if (fireUuidMap.get(player.getUUID()) != null) {
             if (fireUuidMap.get(player.getUUID())) {
-                player.addEffect(new EffectInstance(AEffects.FREEZING, 20, suitPeices(player), false, false));
+                player.addEffect(new MobEffectInstance(AEffects.FREEZING, 20, suitPeices(player), false, false));
             }
         }
     }
 
-    public static int suitPeices(PlayerEntity player) {
+    public static int suitPeices(Player player) {
         int k = 0;
-        if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() != AItems.AVALON_HELMET) {
+        if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() != AItems.AVALON_HELMET) {
             k++;
         }
-        if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() != AItems.AVALON_CHESTPLATE) {
+        if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() != AItems.AVALON_CHESTPLATE) {
             k++;
         }
-        if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() != AItems.AVALON_LEGGINGS) {
+        if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() != AItems.AVALON_LEGGINGS) {
             k++;
         }
-        if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() != AItems.AVALON_BOOTS) {
+        if (player.getItemBySlot(EquipmentSlot.FEET).getItem() != AItems.AVALON_BOOTS) {
             k++;
         }
         return k;
@@ -99,8 +95,8 @@ public class PlayerEvents {
 
 //    @SubscribeEvent
 //    public static void playerHasNoSuit(TickEvent.PlayerTickEvent event) {
-//        PlayerEntity player = event.player;
-//        World world = player.level;
+//        Player player = event.player;
+//        Level world = player.level;
 //        if (event.phase != TickEvent.Phase.END || world.isClientSide) return;
 //        if (player.level.dimension() == RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(AvaliMod.MOD_ID, "avalon"))) {
 //            if (!player.isCreative()) {

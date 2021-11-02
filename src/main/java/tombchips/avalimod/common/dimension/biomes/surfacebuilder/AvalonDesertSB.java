@@ -1,34 +1,32 @@
 package tombchips.avalimod.common.dimension.biomes.surfacebuilder;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConfiguration;
 import tombchips.avalimod.core.ABlocks;
 
 import java.util.Random;
 
-public class AvalonDesertSB extends SurfaceBuilder<SurfaceBuilderConfig> {
+public class AvalonDesertSB extends SurfaceBuilder<SurfaceBuilderBaseConfiguration> {
 
 
-    public AvalonDesertSB(Codec<SurfaceBuilderConfig> codec) {
+    public AvalonDesertSB(Codec<SurfaceBuilderBaseConfiguration> codec) {
         super(codec);
     }
 
 
-
     @Override
-    public void apply(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
+    public void apply(Random random, ChunkAccess chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, int i, long seed, SurfaceBuilderBaseConfiguration config) {
         this.buildSurface(random, chunk, biome, x, z, terrainHeight, noise, defaultBlock, ABlocks.AMMONIA_SOURCE.defaultBlockState(), config.getTopMaterial(), config.getUnderMaterial(), config.getUnderwaterMaterial(), seaLevel);
     }
 
-    protected void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, BlockState topBlock, BlockState middleBlock, BlockState underwaterBlock, int seaLevel) {
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+    protected void buildSurface(Random random, ChunkAccess chunk, Biome biome, int x, int z, int terrainHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, BlockState topBlock, BlockState middleBlock, BlockState underwaterBlock, int seaLevel) {
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         int depth = -1; // Will be used to know how deep we are in solid blocks so we know when to stop placing middleBlock
         int scaledNoise = (int)(noise / 3.0D + 3.0D + random.nextDouble() * 0.25D);
 
@@ -37,7 +35,7 @@ public class AvalonDesertSB extends SurfaceBuilder<SurfaceBuilderConfig> {
 
             // Get the block in the world (Overworld will always give Air, Water, or Stone)
             mutable.set(x, y, z);
-            net.minecraft.block.BlockState currentBlockInWorld = chunk.getBlockState(mutable);
+            BlockState currentBlockInWorld = chunk.getBlockState(mutable);
 
             // Reset the depth counter as we are not in land anymore
             if (currentBlockInWorld.isAir()) {

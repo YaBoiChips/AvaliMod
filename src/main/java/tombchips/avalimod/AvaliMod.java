@@ -1,34 +1,36 @@
 package tombchips.avalimod;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Effect;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+
+import com.mojang.blaze3d.platform.ScreenManager;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
+import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
@@ -62,9 +64,8 @@ public class AvaliMod {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerEntityRenderers);
         ATags.Items.init();
-
-
         GeckoLib.initialize();
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -84,17 +85,21 @@ public class AvaliMod {
         AConfiguredSurfaceBuilders.register();
     }
 
+    public void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers renderer){
+        renderer.registerEntityRenderer(AEntityTypes.AVALI, AvaliEntityRenderer::new);
+        renderer.registerBlockEntityRenderer(ATileEntityTypes.WALL_TAPESTRY, WallTapestryTileRenderer::new);
+        renderer.registerBlockEntityRenderer(ATileEntityTypes.SMALL_CANISTER, SmallCanisterRenderer::new);
+    }
+
     public void entityAttributes(final EntityAttributeCreationEvent event){
         event.put(AEntityTypes.AVALI, AvaliEntity.setCustiomAttributes().build());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(AEntityTypes.AVALI, AvaliEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ATileEntityTypes.WALL_TAPESTRY, WallTapestryTileRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ATileEntityTypes.SMALL_CANISTER, SmallCanisterRenderer::new);
-        ScreenManager.register(AContainers.SMALL_CAN, SmallCanisterScreen::new);
+        MenuScreens.register(AContainers.SMALL_CAN, SmallCanisterScreen::new);
 
     }
+
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         // some example code to dispatch IMC to another mod
@@ -155,7 +160,7 @@ public class AvaliMod {
             LOGGER.info("BYE from Register Fluids");
         }
         @SubscribeEvent
-        public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> event) {
+        public static void registerTileEntities(RegistryEvent.Register<BlockEntityType<?>> event) {
             AvaliMod.LOGGER.debug("AvaliMod: Registering tile entities...");
             ATileEntityTypes.init();
             ATileEntityTypes.tileentity.forEach(entityType -> event.getRegistry().register(entityType));
@@ -174,7 +179,7 @@ public class AvaliMod {
             LOGGER.info("BYE from Register Entities");
         }
         @SubscribeEvent
-        public static void onEffectRegistry(final RegistryEvent.Register<Effect> event) {
+        public static void onEffectRegistry(final RegistryEvent.Register<MobEffect> event) {
             LOGGER.info("HELLO from Register Effects");
             AEffects.init();
             AEffects.effects.forEach(effect -> event.getRegistry().register(effect));
@@ -205,7 +210,7 @@ public class AvaliMod {
 
 
         @SubscribeEvent
-        public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event) {
+        public static void registerContainers(RegistryEvent.Register<MenuType<?>> event) {
             LOGGER.debug("Containers builders...");
             AContainers.init();
             AContainers.containers.forEach(containerType -> event.getRegistry().register(containerType));

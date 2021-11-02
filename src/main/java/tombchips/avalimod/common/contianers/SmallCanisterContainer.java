@@ -1,31 +1,32 @@
 package tombchips.avalimod.common.contianers;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IWorldPosCallable;
+
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import tombchips.avalimod.common.te.SmallCanisterTE;
 import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AContainers;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class SmallCanisterContainer extends Container {
+public class SmallCanisterContainer extends AbstractContainerMenu {
 
-    public final SmallCanisterTE tileEntity;
-    private final IWorldPosCallable canInteractWithCallable;
+    private final Container container;
 
+    public SmallCanisterContainer(int windowId, Inventory playerInv) {
+        this(windowId, playerInv, new SimpleContainer(3));
+    }
 
-    public SmallCanisterContainer(final int windowId, final PlayerInventory playerInv, final SmallCanisterTE tileEntityIn) {
-        super(AContainers.SMALL_CAN, windowId);
-        this.tileEntity = tileEntityIn;
-        this.canInteractWithCallable = IWorldPosCallable.create(tileEntityIn.getLevel(), tileEntityIn.getBlockPos());
+    public SmallCanisterContainer(int slot, Inventory playerInv, Container container) {
+        super(AContainers.SMALL_CAN, slot);
+        checkContainerSize(container, 3);
+        this.container = container;
+        container.startOpen(playerInv.player);
 
         // Main Inventory
         int startX = 8;
@@ -34,7 +35,7 @@ public class SmallCanisterContainer extends Container {
         int slotSizePlus2 = 18;
         for (int row = 0; row < 1; ++row) {
             for (int column = 0; column < 3; ++column) {
-                this.addSlot(new Slot(tileEntityIn, (row * 9) + column, startInvX + (column * slotSizePlus2),
+                this.addSlot(new Slot(container, (row * 9) + column, startInvX + (column * slotSizePlus2),
                         startY + (row * slotSizePlus2)));
             }
         }
@@ -55,48 +56,34 @@ public class SmallCanisterContainer extends Container {
         }
     }
 
-    public SmallCanisterContainer(final int windowId, final PlayerInventory playerInv, final PacketBuffer data) {
-        this(windowId, playerInv, getTileEntity(playerInv, data));
-    }
 
-    private static SmallCanisterTE getTileEntity(final PlayerInventory playerInv, final PacketBuffer data) {
-        Objects.requireNonNull(playerInv, "playerInv cannot be null");
-        Objects.requireNonNull(data, "data cannot be null");
-        final TileEntity tileAtPos = playerInv.player.level.getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof SmallCanisterTE) {
-            return (SmallCanisterTE) tileAtPos;
-        }
-        throw new IllegalStateException("TileEntity is not correct " + tileAtPos);
+
+
+    @Override
+    public boolean stillValid(Player playerIn) {
+        return this.container.stillValid(playerIn);
     }
 
     @Override
-    public boolean stillValid(PlayerEntity playerIn) {
-        return stillValid(canInteractWithCallable, playerIn, ABlocks.SMALL_CANISTER);
-    }
-
-    @Override
-    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            if (index < this.tileEntity.getContainerSize()) {
-                if (!this.moveItemStackTo(itemstack1, this.tileEntity.getContainerSize(), this.slots.size(), true)) {
+            if (index < this.container.getContainerSize()) {
+                if (!this.moveItemStackTo(itemstack1, this.container.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, 0, this.tileEntity.getContainerSize(), false)) {
+            } else if (!this.moveItemStackTo(itemstack1, 0, this.container.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
-
             if (itemstack1.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
         }
-
         return itemstack;
     }
-
 }

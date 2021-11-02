@@ -1,26 +1,24 @@
 package tombchips.avalimod.common.dimension.fluids;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.fluid.*;
-import net.minecraft.item.Item;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tags.Tag;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.SetTag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.FluidAttributes;
-import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.ABlocks;
 import tombchips.avalimod.core.AFluids;
 import tombchips.avalimod.core.AItems;
@@ -49,40 +47,40 @@ public class AmmoniaFluid extends FlowingFluid {
     }
 
     @Override
-    protected boolean canConvertToSource() {
-        return true;
-    }
-
-    @Override
-    protected void beforeDestroyingBlock(IWorld p_205580_1_, BlockPos p_205580_2_, BlockState p_205580_3_) {
-        TileEntity tileentity = p_205580_3_.hasTileEntity() ? p_205580_1_.getBlockEntity(p_205580_2_) : null;
-        Block.dropResources(p_205580_3_, p_205580_1_, p_205580_2_, tileentity);
-    }
-
-    @Override
-    protected int getSlopeFindDistance(IWorldReader p_185698_1_) {
-        return 4;
-    }
-
-    @Override
-    protected int getDropOff(IWorldReader p_204528_1_) {
-        return 1;
-    }
-
-    @Override
-    protected boolean canBeReplacedWith(FluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
+    protected boolean canBeReplacedWith(FluidState p_76127_, BlockGetter p_76128_, BlockPos p_76129_, Fluid p_76130_, Direction p_76131_) {
         return false;
     }
 
     @Override
-    public boolean isEntityInside(FluidState state, IWorldReader world, BlockPos pos, Entity entity, double yToTest, Tag<Fluid> tag, boolean testingHead) {
-        return super.isEntityInside(state, world, pos, entity, yToTest, tag, testingHead);
+    public int getTickDelay(LevelReader p_76120_) {
+        return 6;
+    }
+
+    @Override
+    protected boolean canConvertToSource() {
+        return true;
     }
 
 
     @Override
-    public int getTickDelay(IWorldReader p_205569_1_) {
-        return 6;
+    protected int getSlopeFindDistance(LevelReader p_76074_) {
+        return 4;
+    }
+
+    @Override
+    protected int getDropOff(LevelReader p_76087_) {
+        return 1;
+    }
+
+    @Override
+    protected void beforeDestroyingBlock(LevelAccessor p_205580_1_, BlockPos p_205580_2_, BlockState p_205580_3_) {
+        BlockEntity tileentity = p_205580_3_.hasBlockEntity() ? p_205580_1_.getBlockEntity(p_205580_2_) : null;
+        Block.dropResources(p_205580_3_, p_205580_1_, p_205580_2_, tileentity);
+    }
+
+    @Override
+    public boolean isEntityInside(FluidState state, LevelReader world, BlockPos pos, Entity entity, double yToTest, SetTag<Fluid> tag, boolean testingHead) {
+        return super.isEntityInside(state, world, pos, entity, yToTest, tag, testingHead);
     }
 
     @Override
@@ -102,7 +100,7 @@ public class AmmoniaFluid extends FlowingFluid {
 
     @Override
     protected BlockState createLegacyBlock(FluidState state) {
-        return ABlocks.AMMONIA_SOURCE.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, getLegacyLevel(state));
+        return ABlocks.AMMONIA_SOURCE.defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(state));
     }
 
     @Override
@@ -117,9 +115,9 @@ public class AmmoniaFluid extends FlowingFluid {
     }
 
     public static class Flowing extends AmmoniaFluid {
-        protected void createFluidStateDefinition(StateContainer.Builder<Fluid, FluidState> p_207184_1_) {
-            super.createFluidStateDefinition(p_207184_1_);
-            p_207184_1_.add(LEVEL);
+        protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> state) {
+            super.createFluidStateDefinition(state);
+            state.add(LEVEL);
         }
 
         public int getAmount(FluidState p_207192_1_) {

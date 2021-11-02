@@ -1,20 +1,21 @@
 package tombchips.avalimod.common.te;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -34,27 +35,23 @@ import tombchips.avalimod.core.ATileEntityTypes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatable {
+public class SmallCanisterTE extends RandomizableContainerBlockEntity implements IAnimatable {
 
     private NonNullList<ItemStack> chestContents = NonNullList.withSize(3, ItemStack.EMPTY);
     protected int numPlayersUsing;
     private final IItemHandlerModifiable items = createHandler();
     private LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
 
-    public static boolean isUsed;
 
 
-    public SmallCanisterTE(TileEntityType<?> typeIn) {
-        super(typeIn);
+    public SmallCanisterTE(BlockPos pos, BlockState state) {
+        super(ATileEntityTypes.SMALL_CANISTER, pos, state);
     }
 
-    public SmallCanisterTE() {
-        this(ATileEntityTypes.SMALL_CANISTER);
-    }
 
     private final AnimationFactory manager = new AnimationFactory(this);
 
-    private <E extends TileEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         AnimationController controller = event.getController();
         controller.transitionLengthTicks = 0;
 
@@ -73,10 +70,9 @@ public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatab
         data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 
-    @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-        return super.createMenu(p_createMenu_1_, p_createMenu_2_, p_createMenu_3_);
+    public AbstractContainerMenu createMenu(int id, Inventory player) {
+        return new SmallCanisterContainer(id, player, this);
     }
 
     @Override
@@ -90,24 +86,24 @@ public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatab
     }
 
     @Override
-    protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent("container.small_canister");
+    protected Component getDefaultName() {
+        return new TranslatableComponent("container.small_canister");
     }
 
     @Override
-    public CompoundNBT save(CompoundNBT compound) {
+    public CompoundTag save(CompoundTag compound) {
         super.save(compound);
         if (!this.trySaveLootTable(compound)) {
-            ItemStackHelper.saveAllItems(compound, this.chestContents);
+            ContainerHelper.saveAllItems(compound, this.chestContents);
         }
         return compound;
     }
 
     @Override
-    public void load(BlockState state, CompoundNBT nbt) {
-        super.load(state, nbt);
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
         if (!this.tryLoadLootTable(nbt)) {
-            ItemStackHelper.loadAllItems(nbt, this.chestContents);
+            ContainerHelper.loadAllItems(nbt, this.chestContents);
         }
     }
 
@@ -122,7 +118,7 @@ public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatab
     }
 
     @Override
-    public void startOpen(PlayerEntity player) {
+    public void startOpen(Player player) {
         if (!player.isSpectator()) {
             if (this.numPlayersUsing < 0) {
                 this.numPlayersUsing = 0;
@@ -133,7 +129,7 @@ public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatab
     }
 
     @Override
-    public void stopOpen(PlayerEntity player) {
+    public void stopOpen(Player player) {
         if (!player.isSpectator()) {
             --this.numPlayersUsing;
             this.onOpenOrClose();
@@ -153,24 +149,12 @@ public class SmallCanisterTE extends LockableLootTileEntity implements IAnimatab
         return this.manager;
     }
 
-    @Override
-    protected Container createMenu(int id, PlayerInventory player) {
-        return new SmallCanisterContainer(id, player, this);
-    }
 
     @Override
     public int getContainerSize() {
         return 3;
     }
 
-    @Override
-    public void clearCache() {
-        super.clearCache();
-        if (this.itemHandler != null) {
-            this.itemHandler.invalidate();
-            this.itemHandler = null;
-        }
-    }
 
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nonnull Direction side) {

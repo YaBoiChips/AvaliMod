@@ -1,13 +1,14 @@
 package tombchips.avalimod.common.material;
 
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
+
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 import tombchips.avalimod.core.AItems;
 
 import java.util.function.Supplier;
 
-public enum CustomToolMaterial implements IItemTier
+public enum CustomToolMaterial implements Tier
 {
 
     NANOBLADE_TOOLS (2, 400, 8f, 4f, 30, () -> Ingredient.of(AItems.NANOBLADE_AXE));
@@ -19,7 +20,7 @@ public enum CustomToolMaterial implements IItemTier
     private final int enchantability;
     private final Ingredient repairMaterial;
 
-    private CustomToolMaterial(int harvestLevel, int maxUses, float efficiency, float attackDammage, int enchantability, Supplier<Ingredient> repairMaterial) {
+    CustomToolMaterial(int harvestLevel, int maxUses, float efficiency, float attackDammage, int enchantability, Supplier<Ingredient> repairMaterial) {
         this.harvestLevel = harvestLevel;
         this.maxUses = maxUses;
         this.efficiency = efficiency;
@@ -27,9 +28,6 @@ public enum CustomToolMaterial implements IItemTier
         this.enchantability = enchantability;
         this.repairMaterial = repairMaterial.get();
     }
-
-
-
 
 
     @Override

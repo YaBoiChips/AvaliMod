@@ -1,28 +1,30 @@
 package tombchips.avalimod.common.dimension.biomes;
 
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.WeightedList;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.MobSpawnInfo;
+
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraftforge.common.BiomeDictionary;
+import tombchips.avalimod.mixin.BiomeAccess;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class BiomeBase {
 
     public final Biome biome;
 
-    public BiomeBase(Biome.Climate climate, Biome.Category category, float depth, float scale, BiomeAmbience effects, BiomeGenerationSettings biomeGenerationSettings, MobSpawnInfo mobSpawnInfo) {
-        biome = new Biome(climate, category, depth, scale, effects, biomeGenerationSettings, mobSpawnInfo);
+    public BiomeBase(Biome.ClimateSettings climate, Biome.BiomeCategory category, float depth, float scale, BiomeSpecialEffects effects, BiomeGenerationSettings biomeGenerationSettings, MobSpawnSettings mobSpawnInfo) {
+        biome = BiomeAccess.create(climate, category, depth, scale, effects, biomeGenerationSettings, mobSpawnInfo);
     }
 
-    public BiomeBase(Biome.Builder builder) {
+    public BiomeBase(Biome.BiomeBuilder builder) {
         this.biome = builder.build();
     }
 
@@ -35,7 +37,7 @@ public abstract class BiomeBase {
     }
 
     @Nullable
-    public WeightedList<ResourceLocation> getHills() {
+    public List<ResourceLocation> getHills() {
         return null;
     }
 
@@ -57,8 +59,8 @@ public abstract class BiomeBase {
         return new BiomeDictionary.Type[]{};
     }
 
-    public RegistryKey<Biome> getKey() {
-        return RegistryKey.create(Registry.BIOME_REGISTRY, Objects.requireNonNull(WorldGenRegistries.BIOME.getKey(this.biome)));
+    public ResourceKey<Biome> getKey() {
+        return ResourceKey.create(Registry.BIOME_REGISTRY, Objects.requireNonNull(BuiltinRegistries.BIOME.getKey(this.biome)));
     }
 
     public ResourceLocation getID(Registry<Biome> biomeRegistry) {

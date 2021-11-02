@@ -1,6 +1,6 @@
 package tombchips.avalimod.core.world;
 
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.level.biome.Biome;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.common.dimension.biomes.*;
 
