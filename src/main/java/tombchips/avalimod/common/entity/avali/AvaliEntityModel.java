@@ -1,4 +1,4 @@
-package tombchips.avalimod.client.model;
+package tombchips.avalimod.common.entity.avali;
 
 
 import net.minecraft.resources.ResourceLocation;
@@ -9,8 +9,8 @@ import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 import tombchips.avalimod.AvaliMod;
-import tombchips.avalimod.client.entity.AvaliEntityRenderer;
-import tombchips.avalimod.common.entity.AvaliEntity;
+import tombchips.avalimod.common.entity.avali.AvaliEntityRenderer;
+import tombchips.avalimod.common.entity.avali.AvaliEntity;
 
 
 public class AvaliEntityModel<T extends IAnimatable> extends AnimatedGeoModel<T> {

@@ -1,17 +1,11 @@
-package tombchips.avalimod.client.entity;
+package tombchips.avalimod.common.entity.avali;
 
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.Util;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.phys.AABB;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 import tombchips.avalimod.AvaliMod;
-import tombchips.avalimod.client.model.AvaliEntityModel;
-import tombchips.avalimod.common.entity.AvaliEntity;
 
 import javax.annotation.Nonnull;
 import java.util.Map;

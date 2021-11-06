@@ -1,0 +1,67 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.fire_beetle.fly": {
+			"loop": true,
+			"animation_length": 0.28,
+			"bones": {
+				"wingLeftBack_r1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -17.5]
+						},
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [0, 0, -17.5],
+							"easing": "easeInSine"
+						}
+					}
+				},
+				"wingLeftFront_r1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -17.5]
+						},
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [0, 0, -17.5],
+							"easing": "easeInBounce"
+						}
+					}
+				},
+				"wingRightBack_r1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 17.5]
+						},
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [0, 0, 17.5],
+							"easing": "easeInBounce"
+						}
+					}
+				},
+				"wingRightFront_r1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 17.5]
+						},
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [0, 0, 17.5],
+							"easing": "easeInBounce"
+						}
+					}
+				}
+			}
+		}
+	}
+}

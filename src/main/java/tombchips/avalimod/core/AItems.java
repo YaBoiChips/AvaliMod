@@ -44,6 +44,8 @@ public class AItems {
             (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1).tab(TAB)), "ammonia_bucket");
     public static final Item AVALI_SPAWN_EGG = createItem(new SpawnEggItem(AEntityTypes.AVALI,
             new Color(190, 205, 255).getRGB(), new Color(100, 105, 255).getRGB(), new Item.Properties().tab(TAB)), "avali_spawn_egg");
+    public static final Item FLARE_BEETLE_SPAWN_EGG = createItem(new SpawnEggItem(AEntityTypes.AVALI,
+            new Color(95, 46, 138).getRGB(), new Color(167, 112, 197).getRGB(), new Item.Properties().tab(TAB)), "flare_beetle_spawn_egg");
 
     //BLOCK ITEMS
     public static final Item AVALON_TELEPORTER = createBlockItem(ABlocks.AVALON_TELEPORTER,

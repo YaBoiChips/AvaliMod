@@ -1,7 +1,6 @@
 package tombchips.avalimod;
 
 
-import com.mojang.blaze3d.platform.ScreenManager;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -29,17 +28,18 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmlclient.registry.ClientRegistry;
 import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.resource.ResourceListener;
-import tombchips.avalimod.client.entity.AvaliEntityRenderer;
+import tombchips.avalimod.common.entity.avali.AvaliEntityRenderer;
 import tombchips.avalimod.client.renderer.tile.SmallCanisterRenderer;
 import tombchips.avalimod.client.renderer.tile.WallTapestryTileRenderer;
 import tombchips.avalimod.common.contianers.screens.SmallCanisterScreen;
-import tombchips.avalimod.common.entity.AvaliEntity;
+import tombchips.avalimod.common.entity.avali.AvaliEntity;
+import tombchips.avalimod.common.entity.flare_beetle.FlareBeetle;
+import tombchips.avalimod.common.entity.flare_beetle.FlareBeetleRenderer;
 import tombchips.avalimod.core.*;
 import tombchips.avalimod.core.world.ABiomes;
 import tombchips.avalimod.core.world.AConfiguredSurfaceBuilders;
@@ -87,17 +87,18 @@ public class AvaliMod {
 
     public void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers renderer){
         renderer.registerEntityRenderer(AEntityTypes.AVALI, AvaliEntityRenderer::new);
+        renderer.registerEntityRenderer(AEntityTypes.FLARE_BEETLE, FlareBeetleRenderer::new);
         renderer.registerBlockEntityRenderer(ATileEntityTypes.WALL_TAPESTRY, WallTapestryTileRenderer::new);
         renderer.registerBlockEntityRenderer(ATileEntityTypes.SMALL_CANISTER, SmallCanisterRenderer::new);
     }
 
     public void entityAttributes(final EntityAttributeCreationEvent event){
         event.put(AEntityTypes.AVALI, AvaliEntity.setCustiomAttributes().build());
+        event.put(AEntityTypes.FLARE_BEETLE, FlareBeetle.setCustiomAttributes().build());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         MenuScreens.register(AContainers.SMALL_CAN, SmallCanisterScreen::new);
-
     }
 
 
