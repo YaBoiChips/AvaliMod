@@ -5,10 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,7 +14,6 @@ import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import tombchips.avalimod.AvaliMod;
 import tombchips.avalimod.core.AEffects;
 import tombchips.avalimod.core.AItems;
-import tombchips.avalimod.core.ATags;
 import tombchips.avalimod.core.world.ADimensionTypes;
 
 import java.util.HashMap;

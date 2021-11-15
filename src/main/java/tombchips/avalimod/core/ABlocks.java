@@ -2,7 +2,6 @@ package tombchips.avalimod.core;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.potion.Effects;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -30,7 +29,7 @@ public class ABlocks {
     public static final Block CEILING_LIGHT = registerBlock("ceiling_light", new CeilingLightBlock(AbstractBlock.Properties.copy(Blocks.GLASS).lightLevel(litBlockEmission(15))));
     public static final Block SMALL_CANISTER = registerBlock("small_canister",new SmallCanisterBlock(AbstractBlock.Properties.copy(Blocks.GLASS)));
 
-
+    public static final Block CARBON_POLE = registerBlock("carbon_pole",new CarbonPoleBlock(AbstractBlock.Properties.copy(Blocks.BLACK_WOOL).noOcclusion()));
     public static final Block AVALON_STONE = registerBlock("avalon_stone",new Block(AbstractBlock.Properties.copy(Blocks.STONE)));
     public static final Block FROZEN_AVALON_STONE = registerBlock("frozen_avalon_stone",new Block(AbstractBlock.Properties.copy(Blocks.COBBLESTONE)));
     public static final Block FABRIC_BLOCK = registerBlock("fabric_block",new Block(AbstractBlock.Properties.copy(Blocks.YELLOW_WOOL)));

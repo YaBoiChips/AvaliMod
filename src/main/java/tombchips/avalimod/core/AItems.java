@@ -75,6 +75,8 @@ public class AItems {
             new Item.Properties().tab(TAB));
     public static final Item SNOWDROP = createBlockItem(ABlocks.SNOWDROP,
             new Item.Properties().tab(TAB));
+    public static final Item CARBON_POLE = createBlockItem(ABlocks.CARBON_POLE,
+            new Item.Properties().tab(TAB));
 
     //ARMOR ITEMS
     public static final Item AVALON_HELMET = createItem(new ArmorItem(AvaliArmor.AVALI, EquipmentSlotType.HEAD, new Item.Properties().tab(TAB)), "avalon_helmet");
