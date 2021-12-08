@@ -7,43 +7,43 @@
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 2,
-				"visible_bounds_height": 3.5,
-				"visible_bounds_offset": [0, 1.25, 0]
+				"visible_bounds_height": 4,
+				"visible_bounds_offset": [0, 1, 0]
 			},
 			"bones": [
 				{
 					"name": "Root",
-					"pivot": [0, 0, 0]
+					"pivot": [0, -16, 0]
 				},
 				{
 					"name": "Tapestry",
 					"parent": "Root",
-					"pivot": [0, 31.5, 6]
+					"pivot": [0, 15.5, 6]
 				},
 				{
 					"name": "TapestryTop",
 					"parent": "Tapestry",
-					"pivot": [0, 31.5, 6],
+					"pivot": [0, 15.5, 6],
 					"cubes": [
-						{"origin": [-6, 16.5, 5], "size": [12, 15, 1], "uv": [0, 16]}
+						{"origin": [-6, 0.5, 5], "size": [12, 15, 1], "uv": [0, 16]}
 					]
 				},
 				{
 					"name": "TapestryBottom",
 					"parent": "TapestryTop",
-					"pivot": [0, 16.5, 6],
+					"pivot": [0, 0.5, 6],
 					"cubes": [
-						{"origin": [-6, 1.5, 5], "size": [12, 15, 1], "uv": [0, 0]}
+						{"origin": [-6, -14.5, 5], "size": [12, 15, 1], "uv": [0, 0]}
 					]
 				},
 				{
 					"name": "Frame",
 					"parent": "Root",
-					"pivot": [0, 32, 8],
+					"pivot": [0, 16, 8],
 					"cubes": [
-						{"origin": [-6, 30.75, 7], "size": [1, 1, 1], "uv": [26, 2]},
-						{"origin": [5, 30.75, 7], "size": [1, 1, 1], "uv": [26, 0]},
-						{"origin": [-6.5, 30.75, 6], "size": [13, 1, 1], "uv": [25, 15]}
+						{"origin": [-6, 14.75, 7], "size": [1, 1, 1], "uv": [26, 2]},
+						{"origin": [5, 14.75, 7], "size": [1, 1, 1], "uv": [26, 0]},
+						{"origin": [-6.5, 14.75, 6], "size": [13, 1, 1], "uv": [25, 15]}
 					]
 				}
 			]

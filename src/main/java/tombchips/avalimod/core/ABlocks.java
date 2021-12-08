@@ -42,6 +42,7 @@ public class ABlocks {
     public static final Block FABRIC_TRIM = registerBlock("fabric_trim", new RotateableBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
     public static final Block TECH_BLOCK = registerBlock("tech_block", new RotateableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final Block NANOFIBER_POLE = registerBlock("nanofiber_pole", new RotateableBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
+    public static final Block CARBON_POLE = registerBlock("carbon_pole",new CarbonPoleBlock(BlockBehaviour.Properties.copy(Blocks.BLACK_WOOL).noOcclusion()));
     public static final Block CRYSTAL_LOG = createLog("crystal_log");
 
     public static final Block SNOWDROP = registerBlock("snow_drop", new SnowPlantBlock(AEffects.FREEZING, 7, BlockBehaviour.Properties.copy(Blocks.POPPY)));

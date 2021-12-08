@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "avalimod:block/crystal_log",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "avalimod:block/crystal_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "avalimod:block/crystal_log"
+    }
+  }
+}
