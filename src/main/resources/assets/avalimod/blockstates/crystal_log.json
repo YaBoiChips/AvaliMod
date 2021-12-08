@@ -1,10 +1,16 @@
 {
-
   "variants": {
-    "facing=north":{ "model": "avalimod:block/crystal_log", "y": 270},
-    "facing=south":{ "model": "avalimod:block/crystal_log", "y": 90 },
-    "facing=east":{ "model": "avalimod:block/crystal_log"},
-    "facing=west":{ "model": "avalimod:block/crystal_log", "y": 180}
+    "axis=z": {
+      "model": "avalimod:block/crystal_log",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "avalimod:block/crystal_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "avalimod:block/crystal_log"
+    }
   }
-
 }
