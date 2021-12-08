@@ -40,6 +40,7 @@ public class ABlocks {
     public static final Block FABRIC_TRIM = registerBlock("fabric_trim", new RotateableBlock(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL)));
     public static final Block TECH_BLOCK = registerBlock("tech_block", new RotateableBlock(AbstractBlock.Properties.copy(Blocks.IRON_BLOCK)));
     public static final Block NANOFIBER_POLE = registerBlock("nanofiber_pole", new RotateableBlock(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL)));
+    public static final Block CRYSTAL_LOG = registerBlock("crystal_log", new RotateableBlock(AbstractBlock.Properties.copy(Blocks.OAK_LOG)));
 
     public static final Block SNOWDROP = registerBlock("snow_drop", new SnowPlantBlock(AEffects.FREEZING, 7, AbstractBlock.Properties.copy(Blocks.POPPY)));
 

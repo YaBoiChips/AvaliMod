@@ -1,0 +1,17 @@
+{
+
+	"parent": "minecraft:block/cube",
+	"textures": {
+
+		"down": "avalimod:block/crystal_log/crystal_log_bottom",
+		"up": "avalimod:block/crystal_log/crystal_log_top",
+		"north": "avalimod:block/crystal_log/crystal_log_north",
+		"east": "avalimod:block/crystal_log/crystal_log_east",
+		"south": "avalimod:block/crystal_log/crystal_log_south",
+		"west": "avalimod:block/crystal_log/crystal_log_west",
+
+		"particle": "avalimod:block/crystal_log/fabric_trim_west"
+	}
+
+
+}
